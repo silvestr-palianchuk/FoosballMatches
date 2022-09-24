@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_games">
+
+    <fragment
+        android:id="@+id/navigation_games"
+        android:name="com.silvestr.foosballmatches.ui.games.GamesFragment"
+        android:label="@string/menu_games"
+        tools:layout="@layout/fragment_rankings" />
+
+    <fragment
+        android:id="@+id/navigation_rankings"
+        android:name="com.silvestr.foosballmatches.ui.rankings.RankingsFragment"
+        android:label="@string/menu_rankings"
+        tools:layout="@layout/fragment_games" />
+
+    <fragment
+        android:id="@+id/navigation_players"
+        android:name="com.silvestr.foosballmatches.ui.players.PlayersFragment"
+        android:label="@string/menu_players"
+        tools:layout="@layout/fragment_players" />
+</navigation>

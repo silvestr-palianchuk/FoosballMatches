@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_games"
+        android:icon="@drawable/ic_games"
+        android:title="@string/menu_games" />
+
+    <item
+        android:id="@+id/navigation_rankings"
+        android:icon="@drawable/ic_rankings"
+        android:title="@string/menu_rankings" />
+
+    <item
+        android:id="@+id/navigation_players"
+        android:icon="@drawable/ic_players"
+        android:title="@string/menu_players" />
+
+</menu>
