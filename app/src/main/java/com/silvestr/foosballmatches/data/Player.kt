@@ -2,5 +2,8 @@ package com.silvestr.foosballmatches.data
 
 
 data class Player(
-    val name: String
-)
+    val firstName: String,
+    val lastName: String
+) {
+    val fullName = "$firstName $lastName"
+}
