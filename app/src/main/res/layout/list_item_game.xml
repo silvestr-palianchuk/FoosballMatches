@@ -7,7 +7,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:padding="12dp">
+        android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/action_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/action_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/action_delete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_edit" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{game.formattedDate}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1/09/2022" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/player1"
@@ -15,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@{game.player1.fullName}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_50"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Player1" />
 
@@ -25,7 +53,7 @@
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(game.score1)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_40"
+            app:layout_constraintEnd_toStartOf="@+id/divider"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1" />
 
@@ -33,10 +61,12 @@
             android:id="@+id/divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/vertical_guideline_60"
-            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_40"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_50"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -45,7 +75,7 @@
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(game.score2)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_60"
+            app:layout_constraintStart_toEndOf="@+id/divider"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2" />
 
@@ -55,23 +85,37 @@
             android:layout_height="wrap_content"
             android:text="@{game.player2.fullName}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_60"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Player2" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_40"
+            android:id="@+id/vertical_guideline_30"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_guideline_50"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.44" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_guideline_60"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_guideline_90"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

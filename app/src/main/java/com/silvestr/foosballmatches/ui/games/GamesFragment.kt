@@ -19,8 +19,13 @@ class GamesFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    var gamesViewModel: GamesViewModel? = null
 
-    private val adapter: GamesAdapter by lazy { GamesAdapter() }
+    private val adapter: GamesAdapter by lazy {
+        GamesAdapter(
+            editClickListener = { _, game -> gamesViewModel?.editGame(game) },
+            deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +44,14 @@ class GamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        gamesViewModel = ViewModelProvider(this, viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel?.games?.observe(requireActivity()) {
+            adapter.updateGames(it)
+        }
+
         val gameRecycler = binding.recyclerGame
         gameRecycler.layoutManager = LinearLayoutManager(context)
         gameRecycler.adapter = adapter
-
-        val gamesViewModel = ViewModelProvider(this, viewModelFactory)[GamesViewModel::class.java]
-        gamesViewModel.games.observe(requireActivity()) {
-            adapter.setGames(it)
-        }
     }
 
     override fun onDestroyView() {

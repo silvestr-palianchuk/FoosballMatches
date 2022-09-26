@@ -2,7 +2,7 @@ package com.silvestr.foosballmatches.di
 
 import com.silvestr.foosballmatches.data.repository.FoosballRepositoryImpl
 import com.silvestr.foosballmatches.domain.FoosballRepository
-import com.silvestr.foosballmatches.domain.GetGamesInteractor
+import com.silvestr.foosballmatches.domain.GamesInteractor
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +16,7 @@ class AppModule {
     }
 
     @Provides
-    fun provideGamesInteractor(foosballRepository: FoosballRepository): GetGamesInteractor {
-        return GetGamesInteractor(foosballRepository)
+    fun provideGamesInteractor(foosballRepository: FoosballRepository): GamesInteractor {
+        return GamesInteractor(foosballRepository)
     }
 }

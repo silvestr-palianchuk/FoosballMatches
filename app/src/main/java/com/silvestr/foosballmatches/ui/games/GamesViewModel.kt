@@ -4,24 +4,23 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.silvestr.foosballmatches.data.Game
-import com.silvestr.foosballmatches.domain.GetGamesInteractor
+import com.silvestr.foosballmatches.domain.GamesInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GamesViewModel @Inject constructor(private val getGamesInteractor: GetGamesInteractor) :
+class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesInteractor) :
     ViewModel() {
     val games: MutableLiveData<List<Game>> = MutableLiveData()
-    private var disposable: Disposable? = null
+    private var disposable: CompositeDisposable = CompositeDisposable()
 
     init {
         loadGames()
     }
 
     private fun loadGames() {
-        disposable?.dispose()
-        disposable = getGamesInteractor.execute()
+        disposable.add(getGamesInteractor.getGames()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -31,11 +30,37 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GetGame
                 {
                     Log.d("GamesViewModel", "Error: unable to load games")
                 }
-            )
+            ))
+    }
+
+    fun editGame(game: Game) {
+        disposable.add(
+            getGamesInteractor.updateGame(game)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    loadGames()
+                }, {
+                    Log.d("GamesViewModel", "Error: unable to edit game")
+                })
+        )
+    }
+
+    fun deleteGame(game: Game) {
+        disposable.add(
+            getGamesInteractor.deleteGame(game.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    loadGames()
+                }, {
+                    Log.d("GamesViewModel", "Error: unable to delete game")
+                })
+        )
     }
 
     override fun onCleared() {
-        disposable?.dispose()
+        disposable.dispose()
         super.onCleared()
     }
 }
