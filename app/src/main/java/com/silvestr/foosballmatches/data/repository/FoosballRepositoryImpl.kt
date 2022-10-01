@@ -13,12 +13,11 @@ class FoosballRepositoryImpl() : FoosballRepository {
         return Single.just(data)
     }
 
-    override fun updateGame(game: Game): Completable {
+    override fun updateGame(game: Game, index: Int): Completable {
         return Completable
             .fromSingle(
                 Single.just(data)
                     .map {
-                        val index = data.indexOf(game)
                         data[index] = game
                     }
             )

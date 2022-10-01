@@ -1,6 +1,7 @@
 package com.silvestr.foosballmatches.di
 
 import android.content.Context
+import com.silvestr.foosballmatches.ui.games.EditGameDialogFragment
 import com.silvestr.foosballmatches.ui.games.GamesFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,8 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class, ViewModelProviderModule::class])
 interface AppComponent {
 
-    fun inject(amesFragment: GamesFragment)
+    fun inject(gamesFragment: GamesFragment)
+    fun inject(editGameDialogFragment: EditGameDialogFragment)
 
 
     @Component.Builder

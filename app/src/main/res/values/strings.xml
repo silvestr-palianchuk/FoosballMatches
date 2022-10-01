@@ -3,4 +3,11 @@
     <string name="menu_games">Games</string>
     <string name="menu_rankings">Rankings</string>
     <string name="menu_players">Players</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="score">Score</string>
+    <string name="button_update">Update</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
 </resources>

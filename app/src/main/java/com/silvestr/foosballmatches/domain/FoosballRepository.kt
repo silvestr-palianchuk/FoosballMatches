@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 interface FoosballRepository {
     fun getGames(): Single<List<Game>>
-    fun updateGame(game: Game): Completable
+    fun updateGame(game: Game, index: Int): Completable
     fun deleteGame(gameId: Int): Completable
     fun getPlayers(): Single<List<Player>>
 }

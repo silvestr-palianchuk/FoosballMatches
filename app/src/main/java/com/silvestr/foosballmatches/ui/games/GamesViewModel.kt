@@ -33,9 +33,9 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesIn
             ))
     }
 
-    fun editGame(game: Game) {
+    fun editGame(game: Game, index: Int) {
         disposable.add(
-            getGamesInteractor.updateGame(game)
+            getGamesInteractor.updateGame(game, index)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -57,6 +57,10 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesIn
                     Log.d("GamesViewModel", "Error: unable to delete game")
                 })
         )
+    }
+
+    fun getGameIndex(game: Game): Int {
+        return games.value?.indexOf(game)!!
     }
 
     override fun onCleared() {

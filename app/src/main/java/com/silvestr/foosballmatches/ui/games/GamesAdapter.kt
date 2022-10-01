@@ -17,11 +17,12 @@ class GamesAdapter(
     private val data: MutableList<Game> = mutableListOf()
 
     fun updateGames(games: List<Game>) {
-        val diffCallback = DiffUtilCallback(data, games)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        val diffCallback = DiffUtilCallback(data, games)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()
         data.addAll(games)
-        diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
+//        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun getLayoutResId(viewType: Int): Int = R.layout.list_item_game
@@ -50,9 +51,9 @@ class DiffUtilCallback(private val oldList: List<Any>, private val newList: List
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldList[oldItemPosition]
-        val newItem = newList[newItemPosition]
-        return oldItem.javaClass == newItem.javaClass
+        val oldItem: Game = oldList[oldItemPosition] as Game
+        val newItem: Game = newList[newItemPosition] as Game
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
