@@ -7,6 +7,7 @@
     <string name="player2">Player 2</string>
     <string name="score">Score</string>
     <string name="button_update">Update</string>
+    <string name="button_add">Add Game</string>
     <string name="button_cancel">Cancel</string>
     <string name="hint_first_name">First Name</string>
     <string name="hint_last_name">Last Name</string>

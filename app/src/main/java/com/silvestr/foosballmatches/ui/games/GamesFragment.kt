@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.databinding.FragmentGamesBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
+import java.text.FieldPosition
 import javax.inject.Inject
 
 class GamesFragment : Fragment() {
@@ -24,15 +26,12 @@ class GamesFragment : Fragment() {
 
     private val adapter: GamesAdapter by lazy {
         GamesAdapter(
-            editClickListener = { _, game -> showEditGameDialogFragment(game) },
+            editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
             deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
     }
 
-    private fun showEditGameDialogFragment(game: Game) {
-        val index = gamesViewModel?.getGameIndex(game)
-
-        if (index != null)
-            EditGameDialogFragment.showDialog(childFragmentManager, game, index)
+    private fun showEditGameDialogFragment(game: Game, position: Int) {
+        EditGameDialogFragment.showDialog(childFragmentManager, game, position)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +60,10 @@ class GamesFragment : Fragment() {
         val gameRecycler = binding.recyclerGame
         gameRecycler.layoutManager = LinearLayoutManager(context)
         gameRecycler.adapter = adapter
+
+        binding.fab.setOnClickListener {
+            AddGameDialogFragment.showDialog(childFragmentManager)
+        }
     }
 
     override fun onDestroyView() {

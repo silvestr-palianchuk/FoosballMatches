@@ -11,7 +11,7 @@ import com.silvestr.foosballmatches.ui.base.BindableViewHolder
 
 class GamesAdapter(
     private val deleteClickListener: ((View, Game) -> Unit),
-    private val editClickListener: ((View, Game) -> Unit)
+    private val editClickListener: ((View, Game, Int) -> Unit)
 ) : BaseBindingAdapter() {
 
     private val data: MutableList<Game> = mutableListOf()
@@ -32,7 +32,7 @@ class GamesAdapter(
         binding.game = data[position]
 
         binding.actionEdit.setOnClickListener {
-            editClickListener.invoke(it, data[position])
+            editClickListener.invoke(it, data[position], position)
         }
 
         binding.actionDelete.setOnClickListener {
