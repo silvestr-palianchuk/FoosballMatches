@@ -20,6 +20,7 @@
             android:id="@+id/position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_10"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
             android:layout_marginStart="@dimen/list_item_padding"
             android:layout_marginEnd="@dimen/list_item_padding"
             android:text="@{ranking.player.fullName}"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/vertical_guideline_10"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,9 +47,10 @@
             android:background="@drawable/bg_ranking"
             android:gravity="center"
             android:text="@{String.valueOf(ranking.played)}"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_75"
-            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_50"
+            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_40"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10" />
 
@@ -58,6 +61,7 @@
             android:background="@drawable/bg_ranking"
             android:gravity="center"
             android:text="@{String.valueOf(ranking.won)}"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/vertical_guideline_75"
@@ -72,7 +76,7 @@
             app:layout_constraintGuide_percent="0.10" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_50"
+            android:id="@+id/vertical_guideline_40"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"

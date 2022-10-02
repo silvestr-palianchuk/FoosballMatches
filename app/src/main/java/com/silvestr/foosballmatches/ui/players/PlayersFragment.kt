@@ -1,6 +1,7 @@
 package com.silvestr.foosballmatches.ui.players
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,11 @@ class PlayersFragment : Fragment() {
     ): View {
         _binding = FragmentPlayersBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        playersViewModel?.loadPlayers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -16,42 +16,46 @@
         android:layout_height="@dimen/list_item_game_height"
         android:padding="@dimen/list_item_padding">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/action_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/action_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/action_delete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{game.formattedDate}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/TextAppearance.Regular.Small"
+            app:layout_constraintBottom_toTopOf="@+id/player1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1/09/2022" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/action_delete"
+            android:layout_width="@dimen/action_button_size"
+            android:layout_height="@dimen/action_button_size"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintBaseline_toBaselineOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/action_edit"
+            android:layout_width="@dimen/action_button_size"
+            android:layout_height="@dimen/action_button_size"
+            android:layout_marginEnd="26dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintBaseline_toBaselineOf="@+id/date"
+            app:layout_constraintEnd_toStartOf="@+id/action_delete"
+            app:srcCompat="@drawable/ic_edit" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/player1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="@{game.player1.fullName}"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_50"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
             tools:text="Player1" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -59,9 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(game.score1)}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/TextAppearance.Bold.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/player1"
             app:layout_constraintEnd_toStartOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="1" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -71,19 +75,19 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@string/score_divider"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/TextAppearance.Bold.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/player1"
             app:layout_constraintEnd_toEndOf="@+id/vertical_guideline_60"
-            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_50"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_40" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/score2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(game.score2)}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/TextAppearance.Bold.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/player1"
             app:layout_constraintStart_toEndOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="2" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -91,24 +95,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{game.player2.fullName}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_60"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textAppearance="@style/TextAppearance.Regular.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/player1"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Player2" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_30"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.20" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_50"
+            android:id="@+id/vertical_guideline_40"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_guideline_60"
@@ -116,13 +114,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.6" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_90"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.90" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

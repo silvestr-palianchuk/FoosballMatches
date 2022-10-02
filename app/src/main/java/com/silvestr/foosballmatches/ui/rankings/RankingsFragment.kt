@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.databinding.FragmentRankingsBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
@@ -52,6 +54,7 @@ class RankingsFragment : Fragment() {
         val rankingsRecycler = binding.recyclerRankings
         rankingsRecycler.layoutManager = LinearLayoutManager(context)
         rankingsRecycler.adapter = adapter
+        rankingsRecycler.addItemDecoration(DividerItemDecoration(requireActivity().applicationContext, RecyclerView.VERTICAL))
 
 
 

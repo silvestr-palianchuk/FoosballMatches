@@ -10,6 +10,7 @@
         android:layout_height="@dimen/list_item_ranking_height"
         android:gravity="center"
         android:text="@string/ranking_position"
+        android:textAppearance="@style/TextAppearance.Bold.Medium"
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_10"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +23,9 @@
         android:gravity="center|start"
         android:paddingStart="@dimen/list_item_padding"
         android:text="@string/ranking_player"
+        android:textAppearance="@style/TextAppearance.Bold.Medium"
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_50"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_40"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_10"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,9 +36,10 @@
         android:background="@drawable/bg_ranking"
         android:gravity="center"
         android:text="@string/ranking_played"
+        android:textAppearance="@style/TextAppearance.Bold.Medium"
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_75"
-        app:layout_constraintStart_toEndOf="@+id/vertical_guideline_50"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline_40"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -46,6 +49,7 @@
         android:background="@drawable/bg_ranking"
         android:gravity="center"
         android:text="@string/ranking_won"
+        android:textAppearance="@style/TextAppearance.Bold.Medium"
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_75"
@@ -67,7 +71,7 @@
         app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_guideline_50"
+        android:id="@+id/vertical_guideline_40"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:orientation="vertical"

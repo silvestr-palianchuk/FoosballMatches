@@ -23,7 +23,7 @@ class PlayersViewModel @Inject constructor(private val getPlayersInteractor: Pla
         loadPlayers()
     }
 
-    private fun loadPlayers() {
+    fun loadPlayers() {
         disposable.add(getPlayersInteractor.getPlayers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

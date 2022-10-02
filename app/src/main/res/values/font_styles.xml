@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_xlarge">28sp</dimen>
+
+    <style name="TextAppearance" parent="android:TextAppearance" />
+
+    <style name="TextAppearance.Regular">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Micro">
+        <item name="android:textSize">@dimen/text_size_micro</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="TextAppearance.Regular.Medium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+
+    <style name="TextAppearance.Regular.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.Regular.XLarge">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+    <style name="TextAppearance.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="TextAppearance.Bold.Micro">
+        <item name="android:textSize">@dimen/text_size_micro</item>
+    </style>
+
+    <style name="TextAppearance.Bold.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="TextAppearance.Bold.Medium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="TextAppearance.Bold.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.Bold.XLarge">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+    <style name="TextAppearance.Light">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+    <style name="TextAppearance.Light.Micro">
+        <item name="android:textSize">@dimen/text_size_micro</item>
+    </style>
+
+    <style name="TextAppearance.Light.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="TextAppearance.Light.Medium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="TextAppearance.Light.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.Light.XLarge">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+
+    <style name="TextAppearance.Light.Italic">
+        <item name="android:fontFamily">@font/roboto_light_italic</item>
+    </style>
+
+    <style name="TextAppearance.Light.Italic.Micro">
+        <item name="android:textSize">@dimen/text_size_micro</item>
+    </style>
+
+    <style name="TextAppearance.Light.Italic.Small">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="TextAppearance.Light.Italic.Medium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="TextAppearance.Light.Italic.Large">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.Light.Italic.XLarge">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+
+</resources>

@@ -1,7 +1,6 @@
 package com.silvestr.foosballmatches.ui.players
 
 import com.silvestr.foosballmatches.R
-import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.ListItemPlayerBinding
 import com.silvestr.foosballmatches.ui.base.BaseBindingAdapter
@@ -23,6 +22,7 @@ class PlayersAdapter : BaseBindingAdapter() {
     override fun onBind(holder: BindableViewHolder<*>, position: Int) {
         val binding = holder.bindings as ListItemPlayerBinding
         binding.player = data[position]
+        binding.position.text = "${position + 1}."
     }
 
     override fun getItemCount(): Int = data.size

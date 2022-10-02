@@ -90,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/player1"
+            android:textAppearance="@style/TextAppearance.Bold.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_player1_first_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edit_text_player1_first_name" />
@@ -99,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/player2"
+            android:textAppearance="@style/TextAppearance.Bold.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_player2_first_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edit_text_player2_first_name" />
@@ -109,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score"
+            android:textAppearance="@style/TextAppearance.Bold.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_score1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edit_text_score1" />

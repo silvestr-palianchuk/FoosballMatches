@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.data.Game
@@ -59,6 +61,7 @@ class GamesFragment : Fragment() {
         val gameRecycler = binding.recyclerGame
         gameRecycler.layoutManager = LinearLayoutManager(context)
         gameRecycler.adapter = adapter
+        gameRecycler.addItemDecoration(DividerItemDecoration(requireActivity().applicationContext, RecyclerView.VERTICAL))
 
         binding.fab.setOnClickListener {
             AddGameDialogFragment.showDialog(childFragmentManager)
