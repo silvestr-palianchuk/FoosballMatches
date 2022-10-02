@@ -4,35 +4,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.databinding.FragmentPlayersBinding
+import com.silvestr.foosballmatches.di.ViewModelFactory
+import com.silvestr.foosballmatches.ui.games.GamesAdapter
+import com.silvestr.foosballmatches.ui.games.GamesViewModel
+import javax.inject.Inject
 
 class PlayersFragment : Fragment() {
 
     private var _binding: FragmentPlayersBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    var playersViewModel: PlayersViewModel? = null
+
+    private val adapter: PlayersAdapter by lazy { PlayersAdapter() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.application as FoosballApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(PlayersViewModel::class.java)
-
         _binding = FragmentPlayersBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textPlayers
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        playersViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[PlayersViewModel::class.java]
+
+        playersViewModel?.players?.observe(requireActivity()) {
+            adapter.updatePlayers(it)
         }
-        return root
+
+        val playersRecycler = binding.recyclerPlayers
+        playersRecycler.layoutManager = LinearLayoutManager(context)
+        playersRecycler.adapter = adapter
     }
 
     override fun onDestroyView() {

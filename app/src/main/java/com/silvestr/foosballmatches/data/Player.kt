@@ -5,18 +5,21 @@ import android.os.Parcelable
 
 
 data class Player(
+    val id: Int,
     val firstName: String?,
     val lastName: String?
 ) : Parcelable {
     val fullName = "$firstName $lastName"
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(firstName)
         parcel.writeString(lastName)
     }

@@ -51,8 +51,7 @@ class GamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
         gamesViewModel?.games?.observe(requireActivity()) {
             adapter.updateGames(it)
         }

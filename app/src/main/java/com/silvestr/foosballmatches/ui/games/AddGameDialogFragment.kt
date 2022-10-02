@@ -29,13 +29,19 @@ class AddGameDialogFragment : DialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    var gamesViewModel: GamesViewModel? = null
+    private var gamesViewModel: GamesViewModel? = null
 
     private var _binding: FragmentAddGameBinding? = null
     private val binding get() = _binding!!
 
     private val gameIdsSet = mutableSetOf<Int>().apply {
         for (id in 6..1000) {
+            add(id)
+        }
+    }
+
+    private val playerIdsSet = mutableSetOf<Int>().apply {
+        for (id in 11..1000) {
             add(id)
         }
     }
@@ -56,34 +62,45 @@ class AddGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.buttonAdd.setOnClickListener {
-            val player1 = Player(
-                firstName = binding.editTextPlayer1FirstName.text.toString(),
-                lastName = binding.editTextPlayer1LastName.text.toString()
-            )
-            val player2 = Player(
-                firstName = binding.editTextPlayer2FirstName.text.toString(),
-                lastName = binding.editTextPlayer2LastName.text.toString()
-            )
-            val game = Game(
-                id = gameIdsSet.first(),
-                date = Calendar.getInstance().timeInMillis,
-                player1 = player1,
-                player2 = player2,
-                score1 = binding.editTextScore1.text.toString().toInt(),
-                score2 = binding.editTextScore2.text.toString().toInt()
-            )
-
+            val game = createGame()
             gamesViewModel?.addGame(game)
             gameIdsSet.remove(game.id)
 
             dismiss()
         }
+
         binding.buttonCancel.setOnClickListener {
             dismiss()
         }
+    }
+
+    private fun createGame(): Game {
+        val player1 = Player(
+            id = playerIdsSet.first(),
+            firstName = binding.editTextPlayer1FirstName.text.toString(),
+            lastName = binding.editTextPlayer1LastName.text.toString()
+        )
+        playerIdsSet.remove(player1.id)
+
+        val player2 = Player(
+            id = playerIdsSet.first(),
+            firstName = binding.editTextPlayer2FirstName.text.toString(),
+            lastName = binding.editTextPlayer2LastName.text.toString()
+        )
+        playerIdsSet.remove(player2.id)
+
+        return Game(
+            id = gameIdsSet.first(),
+            date = Calendar.getInstance().timeInMillis,
+            player1 = player1,
+            player2 = player2,
+            score1 = binding.editTextScore1.text.toString().toInt(),
+            score2 = binding.editTextScore2.text.toString().toInt()
+        )
     }
 
     override fun onDestroyView() {

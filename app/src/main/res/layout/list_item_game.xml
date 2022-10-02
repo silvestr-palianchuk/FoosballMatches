@@ -6,8 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="10dp">
+        android:layout_height="@dimen/list_item_game_height"
+        android:padding="@dimen/list_item_padding">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/action_delete"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="-"
+            android:text="@string/score_divider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/vertical_guideline_60"
             app:layout_constraintStart_toStartOf="@+id/vertical_guideline_50"
