@@ -11,22 +11,23 @@ class RankingsInteractor(private val foosballRepository: FoosballRepository) {
 
     fun getRankings(): Single<List<Ranking>> {
         return foosballRepository.getPlayers()
-            .toObservable()
-            .flatMapIterable { it }
-            .flatMap { player -> getPlayerRanking(player) }
-            .toList()
+                .toObservable()
+                .flatMapIterable { it }
+                .flatMap { player -> getPlayerRanking(player) }
+                .filter { it.played != 0 }
+                .toList()
     }
 
     private fun getPlayerRanking(player: Player): Observable<Ranking> {
         return foosballRepository.getGames()
-            .toObservable()
-            .flatMapIterable { it }
-            .filter { it.player1?.id == player.id || it.player2?.id == player.id }
-            .toList()
-            .flatMap {
-                Single.just(calculatePlayerRankings(player, it))
-            }
-            .toObservable()
+                .toObservable()
+                .flatMapIterable { it }
+                .filter { it.player1?.id == player.id || it.player2?.id == player.id }
+                .toList()
+                .flatMap {
+                    Single.just(calculatePlayerRankings(player, it))
+                }
+                .toObservable()
     }
 
     private fun calculatePlayerRankings(player: Player, games: List<Game>): Ranking {
@@ -37,9 +38,9 @@ class RankingsInteractor(private val foosballRepository: FoosballRepository) {
         }.size
 
         return Ranking(
-            player = player,
-            played = played,
-            won = won
+                player = player,
+                played = played,
+                won = won
         )
     }
 }

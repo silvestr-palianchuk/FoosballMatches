@@ -9,12 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.databinding.FragmentGamesBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
-import java.text.FieldPosition
 import javax.inject.Inject
 
 class GamesFragment : Fragment() {
@@ -28,8 +26,8 @@ class GamesFragment : Fragment() {
 
     private val adapter: GamesAdapter by lazy {
         GamesAdapter(
-            editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
-            deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
+                editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
+                deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
     }
 
     private fun showEditGameDialogFragment(game: Game, position: Int) {
@@ -42,9 +40,9 @@ class GamesFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGamesBinding.inflate(inflater, container, false)
         return binding.root

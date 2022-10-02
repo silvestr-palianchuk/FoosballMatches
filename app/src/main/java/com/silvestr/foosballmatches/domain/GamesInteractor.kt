@@ -10,7 +10,7 @@ class GamesInteractor(private val foosballRepository: FoosballRepository) {
         return foosballRepository.getGames()
     }
 
-    fun updateGame(game: Game, position: Int): Completable {
+    fun editGame(game: Game, position: Int): Completable {
         return foosballRepository.editGame(game, position)
     }
 

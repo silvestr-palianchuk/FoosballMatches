@@ -48,7 +48,7 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesIn
 
     fun editGame(game: Game, position: Int) {
         disposable.add(
-            getGamesInteractor.updateGame(game, position)
+            getGamesInteractor.editGame(game, position)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

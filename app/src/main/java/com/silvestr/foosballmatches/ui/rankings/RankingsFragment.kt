@@ -1,6 +1,7 @@
 package com.silvestr.foosballmatches.ui.rankings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.databinding.FragmentRankingsBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
+import com.silvestr.foosballmatches.ui.games.GamesViewModel
 import javax.inject.Inject
 
 class RankingsFragment : Fragment() {
@@ -26,6 +28,7 @@ class RankingsFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     var rankingsViewModel: RankingsViewModel? = null
+    var gamesViewModel: GamesViewModel? = null
 
     private val adapter: RankingsAdapter by lazy { RankingsAdapter() }
 
@@ -45,18 +48,21 @@ class RankingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rankingsViewModel = ViewModelProvider(this, viewModelFactory)[RankingsViewModel::class.java]
+        rankingsViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[RankingsViewModel::class.java]
+        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         rankingsViewModel?.rankings?.observe(requireActivity()) {
             adapter.updateRankings(it, rankingsViewModel?.sortType ?: DEFAULT_SORT_TYPE)
+        }
+
+        gamesViewModel?.games?.observe(requireActivity()) {
+           rankingsViewModel?.loadRankings()
         }
 
         val rankingsRecycler = binding.recyclerRankings
         rankingsRecycler.layoutManager = LinearLayoutManager(context)
         rankingsRecycler.adapter = adapter
         rankingsRecycler.addItemDecoration(DividerItemDecoration(requireActivity().applicationContext, RecyclerView.VERTICAL))
-
-
 
         binding.played.apply {
             isActivated = rankingsViewModel?.sortType == SortType.PLAYED

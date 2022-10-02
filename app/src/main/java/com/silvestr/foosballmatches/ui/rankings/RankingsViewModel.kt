@@ -22,7 +22,7 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
         loadRankings()
     }
 
-    private fun loadRankings() {
+    fun loadRankings() {
         disposable.add(rankingsInteractor.getRankings()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
