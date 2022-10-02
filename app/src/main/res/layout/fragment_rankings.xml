@@ -1,22 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.rankings.RankingsFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_rankings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/position"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_ranking_height"
+        android:gravity="center"
+        android:text="@string/ranking_position"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/player_name"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_ranking_height"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/list_item_padding"
+        android:text="@string/ranking_player"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_50"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline_10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/played"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_ranking_height"
+        android:background="@drawable/bg_ranking"
+        android:gravity="center"
+        android:text="@string/ranking_played"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_75"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline_50"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/won"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_ranking_height"
+        android:background="@drawable/bg_ranking"
+        android:gravity="center"
+        android:text="@string/ranking_won"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline_75"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_rankings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/position" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_10"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_50"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_75"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.silvestr.foosballmatches.ui.games.GamesViewModel
 import com.silvestr.foosballmatches.ui.players.PlayersViewModel
+import com.silvestr.foosballmatches.ui.rankings.RankingsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -23,5 +24,10 @@ abstract class ViewModelProviderModule {
     @IntoMap
     @ViewModelKey(PlayersViewModel::class)
     abstract fun playersViewModel(viewModel: PlayersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RankingsViewModel::class)
+    abstract fun rankingsViewModel(viewModel: RankingsViewModel): ViewModel
 
 }

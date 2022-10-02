@@ -12,7 +12,7 @@ import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.FragmentAddGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
 
 
@@ -35,7 +35,7 @@ class AddGameDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     private val gameIdsSet = mutableSetOf<Int>().apply {
-        for (id in 6..1000) {
+        for (id in 8..1000) {
             add(id)
         }
     }
@@ -52,9 +52,9 @@ class AddGameDialogFragment : DialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddGameBinding.inflate(inflater, container, false)
         return binding.root
@@ -63,7 +63,7 @@ class AddGameDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+                ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.buttonAdd.setOnClickListener {
             val game = createGame()
@@ -80,26 +80,26 @@ class AddGameDialogFragment : DialogFragment() {
 
     private fun createGame(): Game {
         val player1 = Player(
-            id = playerIdsSet.first(),
-            firstName = binding.editTextPlayer1FirstName.text.toString(),
-            lastName = binding.editTextPlayer1LastName.text.toString()
+                id = playerIdsSet.first(),
+                firstName = binding.editTextPlayer1FirstName.text.toString(),
+                lastName = binding.editTextPlayer1LastName.text.toString()
         )
         playerIdsSet.remove(player1.id)
 
         val player2 = Player(
-            id = playerIdsSet.first(),
-            firstName = binding.editTextPlayer2FirstName.text.toString(),
-            lastName = binding.editTextPlayer2LastName.text.toString()
+                id = playerIdsSet.first(),
+                firstName = binding.editTextPlayer2FirstName.text.toString(),
+                lastName = binding.editTextPlayer2LastName.text.toString()
         )
         playerIdsSet.remove(player2.id)
 
         return Game(
-            id = gameIdsSet.first(),
-            date = Calendar.getInstance().timeInMillis,
-            player1 = player1,
-            player2 = player2,
-            score1 = binding.editTextScore1.text.toString().toInt(),
-            score2 = binding.editTextScore2.text.toString().toInt()
+                id = gameIdsSet.first(),
+                date = Calendar.getInstance().timeInMillis,
+                player1 = player1,
+                player2 = player2,
+                score1 = binding.editTextScore1.text.toString().toInt(),
+                score2 = binding.editTextScore2.text.toString().toInt()
         )
     }
 

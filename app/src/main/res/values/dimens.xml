@@ -7,5 +7,6 @@
     <dimen name="edit_text_score_width">50dp</dimen>
     <dimen name="list_item_player_height">60dp</dimen>
     <dimen name="list_item_game_height">60dp</dimen>
+    <dimen name="list_item_ranking_height">60dp</dimen>
     <dimen name="list_item_padding">12dp</dimen>
 </resources>

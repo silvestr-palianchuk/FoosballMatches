@@ -3,15 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/drawable/bg_ranking.xml" value="0.143" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/activity_main.xml" value="0.17701575532900835" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_add_game.xml" value="0.15940685820203893" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_edit_game.xml" value="0.2129115006412997" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_games.xml" value="0.17701575532900835" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_players.xml" value="0.15940685820203893" />
-        <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_rankings.xml" value="0.15940685820203893" />
+        <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/fragment_rankings.xml" value="0.264" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/layout_edit_game.xml" value="0.15940685820203893" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/list_item_game.xml" value="0.21021528070915999" />
         <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/list_item_player.xml" value="0.21021528070915999" />
+        <entry key="..\:/Projects/Apps/Foosball/app/src/main/res/layout/list_item_ranking.xml" value="0.2" />
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.127" />
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/drawable/ic_games.xml" value="0.1535" />
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1535" />

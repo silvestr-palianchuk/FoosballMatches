@@ -5,6 +5,7 @@ import com.silvestr.foosballmatches.ui.games.AddGameDialogFragment
 import com.silvestr.foosballmatches.ui.games.EditGameDialogFragment
 import com.silvestr.foosballmatches.ui.games.GamesFragment
 import com.silvestr.foosballmatches.ui.players.PlayersFragment
+import com.silvestr.foosballmatches.ui.rankings.RankingsFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -18,6 +19,7 @@ interface AppComponent {
     fun inject(editGameDialogFragment: EditGameDialogFragment)
     fun inject(addGameDialogFragment: AddGameDialogFragment)
     fun inject(playersFragment: PlayersFragment)
+    fun inject(rankingsFragment: RankingsFragment)
 
 
     @Component.Builder

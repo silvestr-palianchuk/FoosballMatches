@@ -12,4 +12,8 @@
     <string name="hint_first_name">First Name</string>
     <string name="hint_last_name">Last Name</string>
     <string name="score_divider">-</string>
+    <string name="ranking_position">Pos.</string>
+    <string name="ranking_player">Player</string>
+    <string name="ranking_played">Played</string>
+    <string name="ranking_won">Won</string>
 </resources>

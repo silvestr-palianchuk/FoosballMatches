@@ -4,6 +4,7 @@ import com.silvestr.foosballmatches.data.repository.FoosballRepositoryImpl
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import com.silvestr.foosballmatches.domain.GamesInteractor
 import com.silvestr.foosballmatches.domain.PlayersInteractor
+import com.silvestr.foosballmatches.domain.RankingsInteractor
 import dagger.Module
 import dagger.Provides
 
@@ -24,6 +25,11 @@ class AppModule {
     @Provides
     fun providePlayersInteractor(foosballRepository: FoosballRepository): PlayersInteractor {
         return PlayersInteractor(foosballRepository)
+    }
+
+    @Provides
+    fun provideRankingsInteractor(foosballRepository: FoosballRepository): RankingsInteractor {
+        return RankingsInteractor(foosballRepository)
     }
 
 }
