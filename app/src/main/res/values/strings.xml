@@ -16,4 +16,6 @@
     <string name="ranking_player">Player</string>
     <string name="ranking_played">Played</string>
     <string name="ranking_won">Won</string>
+    <string name="score_hint">0</string>
+    <string name="error_player_name_cant_be_empty">First name and Last name can\'t be empty</string>
 </resources>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,25 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@string/button_cancel"
-            app:layout_constraintEnd_toStartOf="@+id/button_update"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_score1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_update"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_cancel" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_player1_first_name"
@@ -78,11 +60,11 @@
             app:layout_constraintStart_toEndOf="@+id/edit_text_player2_first_name"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_player1_last_name" />
 
-
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_score1"
             android:layout_width="@dimen/edit_text_score_width"
             android:layout_height="@dimen/edit_text_height"
+            android:hint="@string/score_hint"
             android:inputType="number"
             android:text="@{String.valueOf(game.score1)}"
             app:layout_constraintStart_toStartOf="@+id/edit_text_player2_first_name"
@@ -92,11 +74,11 @@
             android:id="@+id/edit_text_score2"
             android:layout_width="@dimen/edit_text_score_width"
             android:layout_height="@dimen/edit_text_height"
+            android:hint="@string/score_hint"
             android:inputType="number"
             android:text="@{String.valueOf(game.score2)}"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_score1"
             app:layout_constraintStart_toEndOf="@+id/edit_text_score1" />
-
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label_player1"
@@ -128,6 +110,40 @@
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_score1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edit_text_score1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/error_message"
+            style="@style/ErrorTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_score"
+            tools:text="Error message"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cancel"
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="@string/button_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/button_update"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_score1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_update"
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_cancel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

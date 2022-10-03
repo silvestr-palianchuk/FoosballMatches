@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonStyle">
+        <item name="backgroundTint">@color/blue_dark</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.Bold.Small</item>
+    </style>
+
+    <style name="ErrorTextStyle">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textAppearance">@style/TextAppearance.Regular.Small</item>
+    </style>
+
+</resources>

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.silvestr.foosballmatches.FoosballApplication
+import com.silvestr.foosballmatches.R
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.databinding.FragmentEditGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
@@ -60,28 +62,54 @@ class EditGameDialogFragment : DialogFragment() {
         binding.game = game
 
         binding.buttonUpdate.setOnClickListener {
-            val updatedPlayer1 = game?.player1?.copy(
-                firstName = binding.editTextPlayer1FirstName.text.toString(),
-                lastName = binding.editTextPlayer1LastName.text.toString()
-            )
-            val updatedPlayer2 = game?.player2?.copy(
-                firstName = binding.editTextPlayer2FirstName.text.toString(),
-                lastName = binding.editTextPlayer2LastName.text.toString()
-            )
-            val updatedGame = game?.copy(
-                player1 = updatedPlayer1,
-                player2 = updatedPlayer2,
-                score1 = binding.editTextScore1.text.toString().toInt(),
-                score2 = binding.editTextScore2.text.toString().toInt()
-            )
+            if (isValidData()) {
+                val updatedPlayer1 = game?.player1?.copy(
+                    firstName = binding.editTextPlayer1FirstName.text.toString(),
+                    lastName = binding.editTextPlayer1LastName.text.toString()
+                )
+                val updatedPlayer2 = game?.player2?.copy(
+                    firstName = binding.editTextPlayer2FirstName.text.toString(),
+                    lastName = binding.editTextPlayer2LastName.text.toString()
+                )
+                val updatedGame = game?.copy(
+                    player1 = updatedPlayer1,
+                    player2 = updatedPlayer2,
+                    score1 = binding.editTextScore1.text.toString().toInt(),
+                    score2 = binding.editTextScore2.text.toString().toInt()
+                )
 
-            if (updatedGame != null)
-                gamesViewModel?.editGame(updatedGame, position!!)
+                if (updatedGame != null && (updatedGame != game))
+                    gamesViewModel?.editGame(updatedGame, position!!)
 
-            dismiss()
+                dismiss()
+            }
         }
+
         binding.buttonCancel.setOnClickListener {
             dismiss()
+        }
+    }
+
+    private fun isValidData(): Boolean {
+        val defaultScoreValue = "0"
+        return when {
+            binding.editTextPlayer1FirstName.text.isNullOrEmpty() ||
+                    binding.editTextPlayer1LastName.text.isNullOrEmpty() ||
+                    binding.editTextPlayer2FirstName.text.isNullOrEmpty() ||
+                    binding.editTextPlayer2LastName.text.isNullOrEmpty() -> {
+                binding.errorMessage.apply {
+                    visibility = View.VISIBLE
+                    text = getString(R.string.error_player_name_cant_be_empty)
+                }
+                false
+            }
+            binding.editTextScore1.text.isNullOrEmpty() ||
+                    binding.editTextScore2.text.isNullOrEmpty() -> {
+                binding.editTextScore1.setText((game?.score1 ?: defaultScoreValue).toString(), TextView.BufferType.EDITABLE)
+                binding.editTextScore2.setText((game?.score2 ?: defaultScoreValue).toString(), TextView.BufferType.EDITABLE)
+                true
+            }
+            else -> true
         }
     }
 
