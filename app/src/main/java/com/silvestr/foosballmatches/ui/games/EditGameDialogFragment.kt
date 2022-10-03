@@ -1,5 +1,6 @@
 package com.silvestr.foosballmatches.ui.games
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
 import com.silvestr.foosballmatches.data.Game
@@ -16,6 +16,7 @@ import com.silvestr.foosballmatches.databinding.FragmentEditGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
 import com.silvestr.foosballmatches.utils.DateHelper
 import com.silvestr.foosballmatches.utils.FragmentArg
+import java.util.Calendar
 import javax.inject.Inject
 
 
@@ -58,18 +59,22 @@ class EditGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.game = game
 
-        val datePicker = MaterialDatePicker.Builder.datePicker().build()
-        datePicker.addOnPositiveButtonClickListener {
-            binding.date.text = DateHelper.getFormattedDate(it)
-        }
+        val datePickerDialogListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                binding.date.text = DateHelper.getFormattedDate(calendar.timeInMillis)
+            }
 
         binding.date.setOnClickListener {
-            datePicker.show(childFragmentManager, TAG)
+            DateHelper.showDatePickerDialog(requireActivity(), datePickerDialogListener)
         }
 
         binding.buttonUpdate.setOnClickListener {
@@ -117,8 +122,14 @@ class EditGameDialogFragment : DialogFragment() {
             }
             binding.editTextScore1.text.isNullOrEmpty() ||
                     binding.editTextScore2.text.isNullOrEmpty() -> {
-                binding.editTextScore1.setText((game?.score1 ?: defaultScoreValue).toString(), TextView.BufferType.EDITABLE)
-                binding.editTextScore2.setText((game?.score2 ?: defaultScoreValue).toString(), TextView.BufferType.EDITABLE)
+                binding.editTextScore1.setText(
+                    (game?.score1 ?: defaultScoreValue).toString(),
+                    TextView.BufferType.EDITABLE
+                )
+                binding.editTextScore2.setText(
+                    (game?.score2 ?: defaultScoreValue).toString(),
+                    TextView.BufferType.EDITABLE
+                )
                 true
             }
             else -> true

@@ -1,5 +1,6 @@
 package com.silvestr.foosballmatches.ui.games
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,16 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
+import com.silvestr.foosballmatches.data.DataProvider.gameIdsSet
+import com.silvestr.foosballmatches.data.DataProvider.playerIdsSet
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.FragmentAddGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
 import com.silvestr.foosballmatches.utils.DateHelper
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
 
@@ -37,19 +39,6 @@ class AddGameDialogFragment : DialogFragment() {
 
     private var _binding: FragmentAddGameBinding? = null
     private val binding get() = _binding!!
-
-
-    private val gameIdsSet = mutableSetOf<Int>().apply {
-        for (id in 8..1000) {
-            add(id)
-        }
-    }
-
-    private val playerIdsSet = mutableSetOf<Int>().apply {
-        for (id in 11..1000) {
-            add(id)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +61,18 @@ class AddGameDialogFragment : DialogFragment() {
 
         binding.date.text = DateHelper.getFormattedDate(Calendar.getInstance().timeInMillis)
 
-        val datePicker = MaterialDatePicker.Builder.datePicker().build()
-        datePicker.addOnPositiveButtonClickListener {
-            binding.date.text = DateHelper.getFormattedDate(it)
-        }
+        val datePickerDialogListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                binding.date.text = DateHelper.getFormattedDate(calendar.timeInMillis)
+            }
 
         binding.date.setOnClickListener {
-            datePicker.show(childFragmentManager, TAG)
+            DateHelper.showDatePickerDialog(requireActivity(), datePickerDialogListener)
         }
 
         binding.buttonAdd.setOnClickListener {
