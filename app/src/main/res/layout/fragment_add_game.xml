@@ -30,15 +30,16 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_player1_first_name"
+            style="@style/PlayerNameEditTextStyle"
             android:layout_width="@dimen/edit_text_player_width"
             android:layout_height="@dimen/edit_text_height"
             android:hint="@string/hint_first_name"
-            android:lines="1"
             app:layout_constraintStart_toStartOf="@+id/date"
             app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_player1_last_name"
+            style="@style/PlayerNameEditTextStyle"
             android:layout_width="@dimen/edit_text_player_width"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginStart="12dp"
@@ -49,6 +50,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_player2_first_name"
+            style="@style/PlayerNameEditTextStyle"
             android:layout_width="@dimen/edit_text_player_width"
             android:layout_height="@dimen/edit_text_height"
             android:hint="@string/hint_first_name"
@@ -58,6 +60,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_player2_last_name"
+            style="@style/PlayerNameEditTextStyle"
             android:layout_width="@dimen/edit_text_player_width"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginStart="12dp"
@@ -68,19 +71,19 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_score1"
+            style="@style/ScoreEditTextStyle"
             android:layout_width="@dimen/edit_text_score_width"
             android:layout_height="@dimen/edit_text_height"
             android:hint="@string/score_hint"
-            android:inputType="number"
             app:layout_constraintStart_toStartOf="@+id/edit_text_player2_first_name"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_player2_first_name" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_text_score2"
+            style="@style/ScoreEditTextStyle"
             android:layout_width="@dimen/edit_text_score_width"
             android:layout_height="@dimen/edit_text_height"
             android:hint="@string/score_hint"
-            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@+id/edit_text_score1"
             app:layout_constraintStart_toEndOf="@+id/edit_text_score1" />
 

@@ -25,21 +25,15 @@
             tools:text="1" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/first_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/full_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@{player.firstName}"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{player.fullName}"
             android:textAppearance="@style/TextAppearance.Regular.Medium"
-            tools:text="Tony" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/last_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{player.lastName}"
-            android:textAppearance="@style/TextAppearance.Regular.Medium"
-            tools:text="Spredeman" />
+            tools:text="Tony Tony" />
 
     </LinearLayout>
 

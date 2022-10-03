@@ -29,13 +29,17 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/player_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/list_item_padding"
             android:layout_marginEnd="@dimen/list_item_padding"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{ranking.player.fullName}"
             android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_50"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/vertical_guideline_10"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Tony Bony" />
@@ -50,7 +54,7 @@
             android:textAppearance="@style/TextAppearance.Regular.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_75"
-            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_40"
+            app:layout_constraintStart_toEndOf="@+id/vertical_guideline_50"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10" />
 
@@ -76,7 +80,7 @@
             app:layout_constraintGuide_percent="0.10" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/vertical_guideline_40"
+            android:id="@+id/vertical_guideline_50"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"

@@ -19,4 +19,15 @@
         <item name="android:textAppearance">@style/TextAppearance.Bold.Large</item>
     </style>
 
+    <style name="PlayerNameEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">20</item>
+    </style>
+
+    <style name="ScoreEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:inputType">number</item>
+    </style>
+
 </resources>
