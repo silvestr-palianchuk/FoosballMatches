@@ -19,7 +19,7 @@ import javax.inject.Inject
 class RankingsFragment : Fragment() {
 
     companion object {
-        val DEFAULT_SORT_TYPE = SortType.PLAYED
+        val DEFAULT_SORT_TYPE = SortType.WON
     }
 
     private var _binding: FragmentRankingsBinding? = null
