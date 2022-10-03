@@ -110,10 +110,10 @@ class EditGameDialogFragment : DialogFragment() {
     private fun isValidData(): Boolean {
         val defaultScoreValue = "0"
         return when {
-            binding.editTextPlayer1FirstName.text.isNullOrEmpty() ||
-                    binding.editTextPlayer1LastName.text.isNullOrEmpty() ||
-                    binding.editTextPlayer2FirstName.text.isNullOrEmpty() ||
-                    binding.editTextPlayer2LastName.text.isNullOrEmpty() -> {
+            binding.editTextPlayer1FirstName.text.isNullOrBlank() ||
+                    binding.editTextPlayer1LastName.text.isNullOrBlank() ||
+                    binding.editTextPlayer2FirstName.text.isNullOrBlank() ||
+                    binding.editTextPlayer2LastName.text.isNullOrBlank() -> {
                 binding.errorMessage.apply {
                     visibility = View.VISIBLE
                     text = getString(R.string.error_player_name_cant_be_empty)
