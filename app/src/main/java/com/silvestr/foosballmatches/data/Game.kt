@@ -2,8 +2,7 @@ package com.silvestr.foosballmatches.data
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.text.format.DateFormat
-import java.util.*
+import com.silvestr.foosballmatches.utils.DateHelper
 
 
 data class Game(
@@ -48,9 +47,7 @@ data class Game(
     }
 
     fun getFormattedDate(): String {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = date
-        return DateFormat.format("dd/MM/yy", calendar).toString()
+        return DateHelper.getFormattedDate(date)
     }
 }
 

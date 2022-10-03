@@ -2,15 +2,21 @@
 <resources>
 
     <style name="ButtonStyle">
-        <item name="backgroundTint">@color/blue_dark</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/blue_dark</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textAppearance">@style/TextAppearance.Bold.Small</item>
+        <item name="android:textAppearance">@style/TextAppearance.Bold.Medium</item>
+        <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="ErrorTextStyle">
         <item name="android:textColor">@color/red</item>
         <item name="android:textAppearance">@style/TextAppearance.Regular.Small</item>
+    </style>
+
+    <style name="ToolbarTitleTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.Bold.Large</item>
     </style>
 
 </resources>

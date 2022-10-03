@@ -17,12 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            style="@style/ToolbarTitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/menu_rankings"
-            android:textAppearance="@style/TextAppearance.Bold.Medium"
-            android:textColor="@color/white" />
+            android:text="@string/menu_rankings" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -77,6 +76,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_75"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <View
+        android:id="@+id/bottom_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shape_shadow_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_rankings" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_rankings"

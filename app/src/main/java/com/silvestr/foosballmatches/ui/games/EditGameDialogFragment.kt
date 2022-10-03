@@ -8,11 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.databinding.FragmentEditGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
+import com.silvestr.foosballmatches.utils.DateHelper
 import com.silvestr.foosballmatches.utils.FragmentArg
 import javax.inject.Inject
 
@@ -61,6 +63,15 @@ class EditGameDialogFragment : DialogFragment() {
 
         binding.game = game
 
+        val datePicker = MaterialDatePicker.Builder.datePicker().build()
+        datePicker.addOnPositiveButtonClickListener {
+            binding.date.text = DateHelper.getFormattedDate(it)
+        }
+
+        binding.date.setOnClickListener {
+            datePicker.show(childFragmentManager, TAG)
+        }
+
         binding.buttonUpdate.setOnClickListener {
             if (isValidData()) {
                 val updatedPlayer1 = game?.player1?.copy(
@@ -72,6 +83,7 @@ class EditGameDialogFragment : DialogFragment() {
                     lastName = binding.editTextPlayer2LastName.text.toString()
                 )
                 val updatedGame = game?.copy(
+                    date = DateHelper.convertStringDateToLong(binding.date.text.toString()),
                     player1 = updatedPlayer1,
                     player2 = updatedPlayer2,
                     score1 = binding.editTextScore1.text.toString().toInt(),

@@ -8,13 +8,15 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.FragmentAddGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
-import java.util.Calendar
+import com.silvestr.foosballmatches.utils.DateHelper
+import java.util.*
 import javax.inject.Inject
 
 
@@ -35,6 +37,7 @@ class AddGameDialogFragment : DialogFragment() {
 
     private var _binding: FragmentAddGameBinding? = null
     private val binding get() = _binding!!
+
 
     private val gameIdsSet = mutableSetOf<Int>().apply {
         for (id in 8..1000) {
@@ -66,6 +69,17 @@ class AddGameDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         gamesViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+
+        binding.date.text = DateHelper.getFormattedDate(Calendar.getInstance().timeInMillis)
+
+        val datePicker = MaterialDatePicker.Builder.datePicker().build()
+        datePicker.addOnPositiveButtonClickListener {
+            binding.date.text = DateHelper.getFormattedDate(it)
+        }
+
+        binding.date.setOnClickListener {
+            datePicker.show(childFragmentManager, TAG)
+        }
 
         binding.buttonAdd.setOnClickListener {
             if (isValidData()) {
@@ -122,7 +136,7 @@ class AddGameDialogFragment : DialogFragment() {
 
         return Game(
             id = gameIdsSet.first(),
-            date = Calendar.getInstance().timeInMillis,
+            date = DateHelper.convertStringDateToLong(binding.date.text.toString()),
             player1 = player1,
             player2 = player2,
             score1 = binding.editTextScore1.text.toString().toInt(),

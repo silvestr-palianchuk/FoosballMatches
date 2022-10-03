@@ -16,12 +16,11 @@
         app:contentInsetStart="0dp">
 
         <androidx.appcompat.widget.AppCompatTextView
+            style="@style/ToolbarTitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/menu_players"
-            android:textAppearance="@style/TextAppearance.Bold.Medium"
-            android:textColor="@color/white" />
+            android:text="@string/menu_players" />
 
     </androidx.appcompat.widget.Toolbar>
 
