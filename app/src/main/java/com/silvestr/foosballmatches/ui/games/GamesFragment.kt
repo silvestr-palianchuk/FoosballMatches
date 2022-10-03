@@ -26,8 +26,8 @@ class GamesFragment : Fragment() {
 
     private val adapter: GamesAdapter by lazy {
         GamesAdapter(
-                editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
-                deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
+            editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
+            deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
     }
 
     private fun showEditGameDialogFragment(game: Game, position: Int) {
@@ -40,9 +40,9 @@ class GamesFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGamesBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,7 +51,8 @@ class GamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
         gamesViewModel?.games?.observe(requireActivity()) {
             adapter.updateGames(it)
         }
@@ -59,9 +60,14 @@ class GamesFragment : Fragment() {
         val gameRecycler = binding.recyclerGame
         gameRecycler.layoutManager = LinearLayoutManager(context)
         gameRecycler.adapter = adapter
-        gameRecycler.addItemDecoration(DividerItemDecoration(requireActivity().applicationContext, RecyclerView.VERTICAL))
+        gameRecycler.addItemDecoration(
+            DividerItemDecoration(
+                requireActivity().applicationContext,
+                RecyclerView.VERTICAL
+            )
+        )
 
-        binding.fab.setOnClickListener {
+        binding.buttonAdd.setOnClickListener {
             AddGameDialogFragment.showDialog(childFragmentManager)
         }
     }

@@ -4,6 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/blue"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/position"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/menu_rankings"
+            android:textAppearance="@style/TextAppearance.Bold.Medium"
+            android:textColor="@color/white" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/position"
         android:layout_width="0dp"
@@ -14,7 +37,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/player_name"
@@ -27,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_40"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_10"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/played"
@@ -40,7 +63,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_75"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_40"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/won"
@@ -53,7 +76,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recycler_rankings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vertical_guideline_75"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_rankings"
