@@ -18,6 +18,10 @@ class GamesAdapter(
     fun updateGames(games: List<Game>) {
         data.clear()
         data.addAll(games)
+
+        /*
+        * Can be replaced with DiffUtils or need to modify update logic in order to use notifyItemChanged
+        */
         notifyDataSetChanged()
     }
 

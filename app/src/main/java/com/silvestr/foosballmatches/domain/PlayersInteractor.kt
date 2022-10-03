@@ -11,6 +11,9 @@ class PlayersInteractor(private val foosballRepository: FoosballRepository) {
                 foosballRepository.getPlayers(),
                 foosballRepository.getGames()
         ) { playersList, gamesList ->
+            /*
+            * Filtering players who did not participate in games
+            */
             playersList.filter { player ->
                 gamesList.any { game ->
                     game.player1?.id == player.id || game.player2?.id == player.id

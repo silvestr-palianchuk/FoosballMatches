@@ -7,6 +7,9 @@ import androidx.core.app.BundleCompat
 import androidx.fragment.app.Fragment
 import kotlin.reflect.KProperty
 
+/*
+* Kotlin delegate for Fragment arguments
+*/
 class FragmentArg<T : Any?> : kotlin.properties.ReadWriteProperty<Fragment, T?> {
 
     var value: T? = null

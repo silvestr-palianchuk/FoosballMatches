@@ -1,6 +1,5 @@
 package com.silvestr.foosballmatches.data.repository
 
-import android.util.Log
 import com.silvestr.foosballmatches.data.DataProvider
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
@@ -8,62 +7,63 @@ import com.silvestr.foosballmatches.domain.FoosballRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
+/*
+* Instead of DataProvider we can use another data source like Data base or Retrofit service
+*/
 
-class FoosballRepositoryImpl() : FoosballRepository {
+class FoosballRepositoryImpl(private val dataProvider: DataProvider) : FoosballRepository {
 
     override fun getGames(): Single<List<Game>> {
-        return Single.just(DataProvider.games)
+        return Single.just(dataProvider.games)
     }
 
     override fun addGame(game: Game): Completable {
         return Completable
-                .fromSingle(
-                        Single.just(DataProvider.games)
-                                .map {
-                                    DataProvider.games.add(game)
-                                    DataProvider.players.add(game.player1!!)
-                                    DataProvider.players.add(game.player2!!)
-                                }
-                )
+            .fromSingle(
+                Single.just(dataProvider.games)
+                    .map {
+                        dataProvider.games.add(game)
+                        dataProvider.players.add(game.player1!!)
+                        dataProvider.players.add(game.player2!!)
+                    }
+            )
     }
 
     override fun editGame(game: Game, position: Int): Completable {
         return Completable
-                .fromSingle(
-                        Single.just(DataProvider.games)
-                                .map {
-                                    game.player1.let { player1 ->
-                                        val player = DataProvider.players.find { it.id == player1!!.id }
-                                        DataProvider.players.remove(player)
-                                        DataProvider.players.add(player1!!)
-                                    }
-                                    game.player2.let { player2 ->
-                                        val player = DataProvider.players.find { it.id == player2!!.id }
-                                        DataProvider.players.remove(player)
-                                        DataProvider.players.add(player2!!)
-                                    }
-                                    DataProvider.games[position] = game
-
-                                    Log.d("qqq", DataProvider.players.toString())
-                                }
-                )
+            .fromSingle(
+                Single.just(dataProvider.games)
+                    .map {
+                        game.player1.let { player1 ->
+                            val player = dataProvider.players.find { it.id == player1!!.id }
+                            dataProvider.players.remove(player)
+                            dataProvider.players.add(player1!!)
+                        }
+                        game.player2.let { player2 ->
+                            val player = dataProvider.players.find { it.id == player2!!.id }
+                            dataProvider.players.remove(player)
+                            dataProvider.players.add(player2!!)
+                        }
+                        dataProvider.games[position] = game
+                    }
+            )
     }
 
     override fun deleteGame(gameId: Int): Completable {
         return Completable
-                .fromSingle(
-                        Single.just(DataProvider.games)
-                                .map {
-                                    val game = DataProvider.games.find {
-                                        gameId == it.id
-                                    }
-                                    DataProvider.games.remove(game)
-                                }
-                )
+            .fromSingle(
+                Single.just(dataProvider.games)
+                    .map {
+                        val game = dataProvider.games.find {
+                            gameId == it.id
+                        }
+                        dataProvider.games.remove(game)
+                    }
+            )
     }
 
     override fun getPlayers(): Single<List<Player>> {
-        return Single.just(DataProvider.players.toList())
+        return Single.just(dataProvider.players.toList())
     }
 
 }

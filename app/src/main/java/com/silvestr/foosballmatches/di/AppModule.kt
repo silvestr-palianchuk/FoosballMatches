@@ -1,5 +1,6 @@
 package com.silvestr.foosballmatches.di
 
+import com.silvestr.foosballmatches.data.DataProvider
 import com.silvestr.foosballmatches.data.repository.FoosballRepositoryImpl
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import com.silvestr.foosballmatches.domain.GamesInteractor
@@ -13,8 +14,13 @@ import dagger.Provides
 class AppModule {
 
     @Provides
-    fun provideFoosballRepository(): FoosballRepository {
-        return FoosballRepositoryImpl()
+    fun provideDataProvider(): DataProvider {
+        return DataProvider
+    }
+
+    @Provides
+    fun provideFoosballRepository(dataProvider: DataProvider): FoosballRepository {
+        return FoosballRepositoryImpl(dataProvider)
     }
 
     @Provides

@@ -9,6 +9,10 @@ import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 
+/*
+* ViewModelFactory we can inject to Activity/Fragment and get required ViewModel
+*/
+
 @Suppress("UNCHECKED_CAST")
 @Singleton
 class ViewModelFactory @Inject constructor(private val viewModels: MutableMap<Class<out ViewModel>,

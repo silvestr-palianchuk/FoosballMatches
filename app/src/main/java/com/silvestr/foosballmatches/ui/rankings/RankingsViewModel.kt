@@ -41,11 +41,6 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
                 ))
     }
 
-    override fun onCleared() {
-        disposable.dispose()
-        super.onCleared()
-    }
-
     fun sortRankings(sortType: SortType) {
         this.sortType = sortType
 
@@ -61,6 +56,11 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
         sortedRankings?.let {
             rankings.postValue(it)
         }
+    }
+
+    override fun onCleared() {
+        disposable.dispose()
+        super.onCleared()
     }
 
 }

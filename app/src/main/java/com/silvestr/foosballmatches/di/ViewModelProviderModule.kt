@@ -9,6 +9,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
+/*
+* Collecting all ViewModels into map and use them by Key in ViewModelFactory
+*/
+
 @Module
 abstract class ViewModelProviderModule {
 

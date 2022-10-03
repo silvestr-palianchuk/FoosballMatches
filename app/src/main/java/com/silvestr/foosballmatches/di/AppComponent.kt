@@ -26,6 +26,9 @@ interface AppComponent {
     interface AppComponentBuilder {
         fun buildAppComponent(): AppComponent
 
+        /*
+        * Passing ApplicationContext to AppComponent in order to use it in any modules
+        * */
         @BindsInstance
         fun context(context: Context): AppComponentBuilder
     }
