@@ -25,7 +25,7 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesIn
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    games.value = it.sortedBy { game -> game.date }.reversed()
+                    games.value = it
                 },
                 {
                     Log.d("GamesViewModel", "Error: unable to load games")

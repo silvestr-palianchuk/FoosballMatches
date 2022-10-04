@@ -1,10 +1,12 @@
 package com.silvestr.foosballmatches.data
 
+import java.util.concurrent.TimeUnit
+
 
 object DataProvider {
 
     val gameIdsSet = mutableSetOf<Int>().apply {
-        for (id in 16..1000) {
+        for (id in 7..1000) {
             add(id)
         }
     }
@@ -28,10 +30,12 @@ object DataProvider {
         Player(10, "Tracy", "McMillin")
     )
 
+    private val currentDate = System.currentTimeMillis()
+
     val games = mutableListOf(
         Game(
             1,
-            System.currentTimeMillis(),
+            currentDate,
             players.find { it.id == 1 },
             players.find { it.id == 2 },
             5,
@@ -39,7 +43,7 @@ object DataProvider {
         ),
         Game(
             2,
-            System.currentTimeMillis(),
+            currentDate,
             players.find { it.id == 3 },
             players.find { it.id == 4 },
             7,
@@ -47,7 +51,7 @@ object DataProvider {
         ),
         Game(
             3,
-            System.currentTimeMillis(),
+            currentDate,
             players.find { it.id == 5 },
             players.find { it.id == 6 },
             10,
@@ -55,7 +59,7 @@ object DataProvider {
         ),
         Game(
             4,
-            System.currentTimeMillis(),
+            currentDate,
             players.find { it.id == 7 },
             players.find { it.id == 8 },
             3,
@@ -63,91 +67,19 @@ object DataProvider {
         ),
         Game(
             5,
-            System.currentTimeMillis(),
+            currentDate,
             players.find { it.id == 9 },
             players.find { it.id == 10 },
-            5,
-            9
-        ),
-        Game(
-            6,
-            System.currentTimeMillis(),
-            players.find { it.id == 9 },
-            players.find { it.id == 10 },
-            3,
-            10
-        ),
-        Game(
-            7,
-            System.currentTimeMillis(),
-            players.find { it.id == 9 },
-            players.find { it.id == 10 },
-            1,
-            11
-        ),
-        Game(
-            8,
-            System.currentTimeMillis(),
-            players.find { it.id == 1 },
-            players.find { it.id == 9 },
-            1,
-            9
-        ),
-        Game(
             9,
-            System.currentTimeMillis(),
-            players.find { it.id == 2 },
-            players.find { it.id == 8 },
-            2,
-            8
+            5
         ),
         Game(
-            10,
-            System.currentTimeMillis(),
-            players.find { it.id == 3 },
-            players.find { it.id == 7 },
-            7,
-            3
-        ),
-        Game(
-            11,
-            System.currentTimeMillis(),
-            players.find { it.id == 4 },
-            players.find { it.id == 6 },
-            4,
-            6
-        ),
-        Game(
-            12,
-            System.currentTimeMillis(),
-            players.find { it.id == 5 },
-            players.find { it.id == 4 },
-            5,
-            4
-        ),
-        Game(
-            13,
-            System.currentTimeMillis(),
-            players.find { it.id == 6 },
-            players.find { it.id == 3 },
             6,
-            3
-        ),
-        Game(
-            14,
-            System.currentTimeMillis(),
-            players.find { it.id == 7 },
-            players.find { it.id == 2 },
-            7,
-            2
-        ),
-        Game(
-            15,
-            System.currentTimeMillis(),
+            currentDate,
+            players.find { it.id == 9 },
             players.find { it.id == 8 },
-            players.find { it.id == 1 },
             8,
-            1
+            3
         )
     )
 }
