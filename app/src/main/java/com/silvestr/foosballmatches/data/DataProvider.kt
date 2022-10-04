@@ -5,7 +5,7 @@ import java.util.Calendar
 object DataProvider {
 
     val gameIdsSet = mutableSetOf<Int>().apply {
-        for (id in 7..1000) {
+        for (id in 6..1000) {
             add(id)
         }
     }
@@ -80,14 +80,6 @@ object DataProvider {
             players.find { it.id == 10 },
             9,
             5
-        ),
-        Game(
-            6,
-            currentDate,
-            players.find { it.id == 9 },
-            players.find { it.id == 8 },
-            8,
-            3
         )
     )
 }
