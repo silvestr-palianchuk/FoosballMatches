@@ -1,7 +1,6 @@
 package com.silvestr.foosballmatches.data
 
-import java.util.concurrent.TimeUnit
-
+import java.util.Calendar
 
 object DataProvider {
 
@@ -30,7 +29,16 @@ object DataProvider {
         Player(10, "Tracy", "McMillin")
     )
 
-    private val currentDate = System.currentTimeMillis()
+    private val currentDate = getCurrentDate()
+
+    private fun getCurrentDate(): Long {
+        val calendar = Calendar.getInstance()
+        calendar[Calendar.MILLISECOND] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.HOUR] = 0
+        return calendar.timeInMillis
+    }
 
     val games = mutableListOf(
         Game(
