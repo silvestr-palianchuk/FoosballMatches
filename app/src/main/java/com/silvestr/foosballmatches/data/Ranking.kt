@@ -3,7 +3,6 @@ package com.silvestr.foosballmatches.data
 import android.os.Parcel
 import android.os.Parcelable
 
-
 data class Ranking(
     val player: Player?,
     val played: Int,

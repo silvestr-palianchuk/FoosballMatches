@@ -1,6 +1,10 @@
 package com.silvestr.foosballmatches.di
 
-import com.silvestr.foosballmatches.data.DataProvider
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import com.silvestr.foosballmatches.data.database.AppDatabase
+import com.silvestr.foosballmatches.data.database.DbManager
 import com.silvestr.foosballmatches.data.repository.FoosballRepositoryImpl
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import com.silvestr.foosballmatches.domain.GamesInteractor
@@ -14,13 +18,18 @@ import dagger.Provides
 class AppModule {
 
     @Provides
-    fun provideDataProvider(): DataProvider {
-        return DataProvider
+    fun provideDataBase(): AppDatabase {
+        return DbManager.db
     }
 
     @Provides
-    fun provideFoosballRepository(dataProvider: DataProvider): FoosballRepository {
-        return FoosballRepositoryImpl(dataProvider)
+    fun getPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences("prefs", MODE_PRIVATE)
+    }
+
+    @Provides
+    fun provideFoosballRepository(database: AppDatabase): FoosballRepository {
+        return FoosballRepositoryImpl(database)
     }
 
     @Provides

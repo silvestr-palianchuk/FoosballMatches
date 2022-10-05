@@ -2,13 +2,19 @@ package com.silvestr.foosballmatches.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.silvestr.foosballmatches.utils.DateHelper
 
-
+@Entity
 data class Game(
+    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val date: Long,
+    @Embedded(prefix = "player1")
     val player1: Player?,
+    @Embedded(prefix = "player2")
     val player2: Player?,
     val score1: Int,
     val score2: Int

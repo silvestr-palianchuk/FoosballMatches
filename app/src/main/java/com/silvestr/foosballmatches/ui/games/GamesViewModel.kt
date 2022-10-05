@@ -1,28 +1,62 @@
 package com.silvestr.foosballmatches.ui.games
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.silvestr.foosballmatches.data.DataProvider
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
+import com.silvestr.foosballmatches.data.database.DbManager
 import com.silvestr.foosballmatches.domain.GamesInteractor
 import com.silvestr.foosballmatches.domain.PlayersInteractor
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class GamesViewModel @Inject constructor(
     private val getGamesInteractor: GamesInteractor,
-    private val playersInteractor: PlayersInteractor
+    private val playersInteractor: PlayersInteractor,
+    private val sharedPreferences: SharedPreferences
 ) :
     ViewModel() {
     val games: MutableLiveData<List<Game>> = MutableLiveData()
     val players: MutableSet<Player> = mutableSetOf()
     private var disposable: CompositeDisposable = CompositeDisposable()
+    private val IS_DB_POPULATED = "IS_DB_POPULATED"
 
     init {
-        loadGames()
-        loadPlayers()
+        val isDbPopulated = sharedPreferences.getBoolean(IS_DB_POPULATED, false)
+        if (isDbPopulated) {
+            loadGames()
+            loadPlayers()
+        } else {
+            populateDatabase()
+        }
+    }
+
+    private fun populateDatabase() {
+        val addGamesToDb =
+            Single.fromCallable { DbManager.db.gameDao.insertAll(DataProvider.gamesConcurrent) }
+        val addPlayersToDb =
+            Single.fromCallable { DbManager.db.playerDao.insertAll(DataProvider.playersConcurrent) }
+
+        disposable.add(
+            addPlayersToDb
+                .flatMap {
+                    addGamesToDb
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    Log.d("GamesViewModel", "Players and Games were added successfully")
+                    loadGames()
+                    loadPlayers()
+                    sharedPreferences.edit().putBoolean(IS_DB_POPULATED, true).apply()
+                }, {
+                    Log.e("GamesViewModel", "Error: unable to add data to database -> $it")
+                })
+        )
     }
 
     private fun loadPlayers() {
@@ -33,7 +67,7 @@ class GamesViewModel @Inject constructor(
                     players.addAll(it)
                 },
                 {
-                    Log.d("GamesViewModel", "Error: unable to load players")
+                    Log.e("GamesViewModel", "Error: unable to load players -> $it")
                 }
             ))
 
@@ -57,7 +91,7 @@ class GamesViewModel @Inject constructor(
                     }))
                 },
                 {
-                    Log.d("GamesViewModel", "Error: unable to load games")
+                    Log.e("GamesViewModel", "Error: unable to load games -> $it")
                 }
             ))
     }
@@ -70,7 +104,7 @@ class GamesViewModel @Inject constructor(
                     loadGames()
                     loadPlayers()
                 }, {
-                    Log.d("GamesViewModel", "Error: unable to add game")
+                    Log.e("GamesViewModel", "Error: unable to add game -> $it")
                 })
         )
     }
@@ -83,7 +117,7 @@ class GamesViewModel @Inject constructor(
                     loadGames()
                     loadPlayers()
                 }, {
-                    Log.d("GamesViewModel", "Error: unable to edit game")
+                    Log.e("GamesViewModel", "Error: unable to edit game-> $it")
                 })
         )
     }
@@ -96,7 +130,7 @@ class GamesViewModel @Inject constructor(
                     loadGames()
                     loadPlayers()
                 }, {
-                    Log.d("GamesViewModel", "Error: unable to delete game")
+                    Log.e("GamesViewModel", "Error: unable to delete game -> $it")
                 })
         )
     }

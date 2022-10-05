@@ -2,13 +2,18 @@ package com.silvestr.foosballmatches.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 
-
+@Entity
 data class Player(
+    @PrimaryKey
     val id: Int,
     val firstName: String?,
     val lastName: String?
 ) : Parcelable {
+    @Ignore
     val fullName = "$firstName $lastName"
 
     constructor(parcel: Parcel) : this(
