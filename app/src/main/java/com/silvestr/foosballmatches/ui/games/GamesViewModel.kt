@@ -7,7 +7,6 @@ import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.domain.GamesInteractor
 import com.silvestr.foosballmatches.domain.PlayersInteractor
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -29,7 +28,6 @@ class GamesViewModel @Inject constructor(
     private fun loadPlayers() {
         disposable.add(playersInteractor.getPlayers()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     players.addAll(it)
@@ -44,10 +42,9 @@ class GamesViewModel @Inject constructor(
     private fun loadGames() {
         disposable.add(getGamesInteractor.getGames()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    games.value = it.sortedWith(object : Comparator<Game> {
+                    games.postValue(it.sortedWith(object : Comparator<Game> {
                         override fun compare(p0: Game, p1: Game): Int {
                             if (p0.date > p1.date) {
                                 return -1
@@ -57,7 +54,7 @@ class GamesViewModel @Inject constructor(
                             }
                             return 1
                         }
-                    })
+                    }))
                 },
                 {
                     Log.d("GamesViewModel", "Error: unable to load games")
@@ -69,9 +66,9 @@ class GamesViewModel @Inject constructor(
         disposable.add(
             getGamesInteractor.addGame(game)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     loadGames()
+                    loadPlayers()
                 }, {
                     Log.d("GamesViewModel", "Error: unable to add game")
                 })
@@ -82,9 +79,9 @@ class GamesViewModel @Inject constructor(
         disposable.add(
             getGamesInteractor.editGame(game, position)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     loadGames()
+                    loadPlayers()
                 }, {
                     Log.d("GamesViewModel", "Error: unable to edit game")
                 })
@@ -95,9 +92,9 @@ class GamesViewModel @Inject constructor(
         disposable.add(
             getGamesInteractor.deleteGame(game.id)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     loadGames()
+                    loadPlayers()
                 }, {
                     Log.d("GamesViewModel", "Error: unable to delete game")
                 })

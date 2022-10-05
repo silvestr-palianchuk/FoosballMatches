@@ -56,8 +56,7 @@ class AddGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.date.text = DateHelper.getFormattedDate(Calendar.getInstance().timeInMillis)
 
@@ -121,18 +120,19 @@ class AddGameDialogFragment : DialogFragment() {
         val existingPlayer = gamesViewModel?.isPlayerExist(firstName, lastName)
 
         return if (existingPlayer == null) {
-            Player(
+            val player = Player(
                 id = playerIdsSet.first(),
                 firstName = firstName,
                 lastName = lastName
             )
+            playerIdsSet.remove(player.id)
+            player
         } else {
-            val player = Player(
+            Player(
                 id = existingPlayer.id,
                 firstName = existingPlayer.firstName,
                 lastName = existingPlayer.lastName
             )
-            player
         }
     }
 
