@@ -11,5 +11,5 @@ interface FoosballRepository {
     fun addGame(game: Game): Completable
     fun editGame(game: Game, position: Int): Completable
     fun deleteGame(gameId: Int): Completable
-    fun getPlayers(): Single<List<Player>>
+    fun getPlayers(): Single<Set<Player>>
 }

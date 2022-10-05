@@ -6,19 +6,19 @@ import io.reactivex.Single
 
 class PlayersInteractor(private val foosballRepository: FoosballRepository) {
 
-    fun getPlayers(): Single<List<Player>> {
+    fun getPlayers(): Single<Set<Player>> {
         return Single.zip(
                 foosballRepository.getPlayers(),
                 foosballRepository.getGames()
-        ) { playersList, gamesList ->
+        ) { playersSet, gamesList ->
             /*
             * Filtering players who did not participate in games
             */
-            playersList.filter { player ->
+            playersSet.filter { player ->
                 gamesList.any { game ->
                     game.player1?.id == player.id || game.player2?.id == player.id
                 }
-            }
+            }.toSet()
         }
     }
 }

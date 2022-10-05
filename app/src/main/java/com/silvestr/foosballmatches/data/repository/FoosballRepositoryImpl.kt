@@ -14,17 +14,17 @@ import io.reactivex.Single
 class FoosballRepositoryImpl(private val dataProvider: DataProvider) : FoosballRepository {
 
     override fun getGames(): Single<List<Game>> {
-        return Single.just(dataProvider.games)
+        return Single.just(dataProvider.gamesConcurrent)
     }
 
     override fun addGame(game: Game): Completable {
         return Completable
             .fromSingle(
-                Single.just(dataProvider.games)
+                Single.just(dataProvider.gamesConcurrent)
                     .map {
-                        dataProvider.games.add(game)
-                        dataProvider.players.add(game.player1!!)
-                        dataProvider.players.add(game.player2!!)
+                        dataProvider.gamesConcurrent.add(game)
+                        dataProvider.playersConcurrent.add(game.player1!!)
+                        dataProvider.playersConcurrent.add(game.player2!!)
                     }
             )
     }
@@ -32,19 +32,19 @@ class FoosballRepositoryImpl(private val dataProvider: DataProvider) : FoosballR
     override fun editGame(game: Game, position: Int): Completable {
         return Completable
             .fromSingle(
-                Single.just(dataProvider.games)
+                Single.just(dataProvider.gamesConcurrent)
                     .map {
                         game.player1.let { player1 ->
-                            val player = dataProvider.players.find { it.id == player1!!.id }
-                            dataProvider.players.remove(player)
-                            dataProvider.players.add(player1!!)
+                            val player = dataProvider.playersConcurrent.find { it.id == player1!!.id }
+                            dataProvider.playersConcurrent.remove(player)
+                            dataProvider.playersConcurrent.add(player1!!)
                         }
                         game.player2.let { player2 ->
-                            val player = dataProvider.players.find { it.id == player2!!.id }
-                            dataProvider.players.remove(player)
-                            dataProvider.players.add(player2!!)
+                            val player = dataProvider.playersConcurrent.find { it.id == player2!!.id }
+                            dataProvider.playersConcurrent.remove(player)
+                            dataProvider.playersConcurrent.add(player2!!)
                         }
-                        dataProvider.games[position] = game
+                        dataProvider.gamesConcurrent[position] = game
                     }
             )
     }
@@ -52,18 +52,18 @@ class FoosballRepositoryImpl(private val dataProvider: DataProvider) : FoosballR
     override fun deleteGame(gameId: Int): Completable {
         return Completable
             .fromSingle(
-                Single.just(dataProvider.games)
+                Single.just(dataProvider.gamesConcurrent)
                     .map {
-                        val game = dataProvider.games.find {
+                        val game = dataProvider.gamesConcurrent.find {
                             gameId == it.id
                         }
-                        dataProvider.games.remove(game)
+                        dataProvider.gamesConcurrent.remove(game)
                     }
             )
     }
 
-    override fun getPlayers(): Single<List<Player>> {
-        return Single.just(dataProvider.players.toList())
+    override fun getPlayers(): Single<Set<Player>> {
+        return Single.just(dataProvider.playersConcurrent)
     }
 
 }

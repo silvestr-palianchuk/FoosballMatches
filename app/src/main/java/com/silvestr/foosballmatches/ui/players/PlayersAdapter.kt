@@ -9,9 +9,9 @@ import com.silvestr.foosballmatches.ui.base.BindableViewHolder
 
 class PlayersAdapter : BaseBindingAdapter() {
 
-    val data: MutableList<Player> = mutableListOf()
+    val data: MutableSet<Player> = mutableSetOf()
 
-    fun updatePlayers(players: List<Player>) {
+    fun updatePlayers(players: Set<Player>) {
         data.clear()
         data.addAll(players)
         notifyDataSetChanged()
@@ -21,7 +21,7 @@ class PlayersAdapter : BaseBindingAdapter() {
 
     override fun onBind(holder: BindableViewHolder<*>, position: Int) {
         val binding = holder.bindings as ListItemPlayerBinding
-        binding.player = data[position]
+        binding.player = data.elementAt(position)
         binding.position.text = "${position + 1}."
     }
 

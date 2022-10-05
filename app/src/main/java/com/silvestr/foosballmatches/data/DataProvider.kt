@@ -1,6 +1,8 @@
 package com.silvestr.foosballmatches.data
 
 import java.util.Calendar
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.CopyOnWriteArraySet
 
 object DataProvider {
 
@@ -16,7 +18,7 @@ object DataProvider {
         }
     }
 
-    val players = mutableSetOf(
+    private val players = setOf(
         Player(1, "Bruno", "Goncalves"),
         Player(2, "Yannick", "Correia"),
         Player(3, "Billy", "Pappas"),
@@ -29,6 +31,8 @@ object DataProvider {
         Player(10, "Tracy", "McMillin")
     )
 
+    val playersConcurrent = CopyOnWriteArraySet<Player>().apply { addAll(players) }
+
     private val currentDate = getCurrentDate()
 
     private fun getCurrentDate(): Long {
@@ -40,7 +44,7 @@ object DataProvider {
         return calendar.timeInMillis
     }
 
-    val games = mutableListOf(
+    private val games = listOf(
         Game(
             1,
             currentDate,
@@ -82,4 +86,7 @@ object DataProvider {
             5
         )
     )
+
+    val gamesConcurrent = CopyOnWriteArrayList<Game>().apply { addAll(games) }
+
 }

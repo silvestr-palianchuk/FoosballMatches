@@ -16,7 +16,7 @@ import javax.inject.Inject
 class PlayersViewModel @Inject constructor(private val getPlayersInteractor: PlayersInteractor) :
     ViewModel() {
 
-    val players: MutableLiveData<List<Player>> = MutableLiveData()
+    val players: MutableLiveData<Set<Player>> = MutableLiveData()
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     init {
