@@ -35,16 +35,29 @@ class FoosballRepositoryImpl(private val dataProvider: DataProvider) : FoosballR
                 Single.just(dataProvider.gamesConcurrent)
                     .map {
                         game.player1.let { player1 ->
-                            val player = dataProvider.playersConcurrent.find { it.id == player1!!.id }
+                            val player =
+                                dataProvider.playersConcurrent.find { it.id == player1!!.id }
                             dataProvider.playersConcurrent.remove(player)
                             dataProvider.playersConcurrent.add(player1!!)
                         }
                         game.player2.let { player2 ->
-                            val player = dataProvider.playersConcurrent.find { it.id == player2!!.id }
+                            val player =
+                                dataProvider.playersConcurrent.find { it.id == player2!!.id }
                             dataProvider.playersConcurrent.remove(player)
                             dataProvider.playersConcurrent.add(player2!!)
                         }
                         dataProvider.gamesConcurrent[position] = game
+
+                        dataProvider.gamesConcurrent.forEachIndexed { index, gameFromDataProvider ->
+                            if (gameFromDataProvider.player1?.id == game.player1?.id) {
+                                dataProvider.gamesConcurrent[index] =
+                                    gameFromDataProvider.copy(player1 = game.player1)
+                            }
+                            if (gameFromDataProvider.player2?.id == game.player2?.id) {
+                                dataProvider.gamesConcurrent[index] =
+                                    gameFromDataProvider.copy(player2 = game.player2)
+                            }
+                        }
                     }
             )
     }

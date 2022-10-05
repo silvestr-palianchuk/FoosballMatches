@@ -117,20 +117,34 @@ class AddGameDialogFragment : DialogFragment() {
         }
     }
 
-    private fun createGame(): Game {
-        val player1 = Player(
-            id = playerIdsSet.first(),
-            firstName = binding.editTextPlayer1FirstName.text.toString(),
-            lastName = binding.editTextPlayer1LastName.text.toString()
-        )
-        playerIdsSet.remove(player1.id)
+    private fun createPlayer(firstName: String, lastName: String): Player {
+        val existingPlayer = gamesViewModel?.isPlayerExist(firstName, lastName)
 
-        val player2 = Player(
-            id = playerIdsSet.first(),
-            firstName = binding.editTextPlayer2FirstName.text.toString(),
-            lastName = binding.editTextPlayer2LastName.text.toString()
-        )
-        playerIdsSet.remove(player2.id)
+        return if (existingPlayer == null) {
+            Player(
+                id = playerIdsSet.first(),
+                firstName = firstName,
+                lastName = lastName
+            )
+        } else {
+            val player = Player(
+                id = existingPlayer.id,
+                firstName = existingPlayer.firstName,
+                lastName = existingPlayer.lastName
+            )
+            player
+        }
+    }
+
+    private fun createGame(): Game {
+        val player1FirstNameFromEditText = binding.editTextPlayer1FirstName.text.toString().trim()
+        val player1LastNameFromEditText = binding.editTextPlayer1LastName.text.toString().trim()
+
+        val player2FirstNameFromEditText = binding.editTextPlayer2FirstName.text.toString().trim()
+        val player2LastNameFromEditText = binding.editTextPlayer2LastName.text.toString().trim()
+
+        val player1 = createPlayer(player1FirstNameFromEditText, player1LastNameFromEditText)
+        val player2 = createPlayer(player2FirstNameFromEditText, player2LastNameFromEditText)
 
         return Game(
             id = gameIdsSet.first(),

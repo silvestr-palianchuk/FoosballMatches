@@ -4,19 +4,41 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.silvestr.foosballmatches.data.Game
+import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.domain.GamesInteractor
+import com.silvestr.foosballmatches.domain.PlayersInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesInteractor) :
+class GamesViewModel @Inject constructor(
+    private val getGamesInteractor: GamesInteractor,
+    private val playersInteractor: PlayersInteractor
+) :
     ViewModel() {
     val games: MutableLiveData<List<Game>> = MutableLiveData()
+    val players: MutableSet<Player> = mutableSetOf()
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     init {
         loadGames()
+        loadPlayers()
+    }
+
+    private fun loadPlayers() {
+        disposable.add(playersInteractor.getPlayers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    players.addAll(it)
+                },
+                {
+                    Log.d("GamesViewModel", "Error: unable to load players")
+                }
+            ))
+
     }
 
     private fun loadGames() {
@@ -80,6 +102,14 @@ class GamesViewModel @Inject constructor(private val getGamesInteractor: GamesIn
                     Log.d("GamesViewModel", "Error: unable to delete game")
                 })
         )
+    }
+
+    fun isPlayerExist(firstName: String, lastName: String): Player? {
+        val player = players.filter { it.firstName == firstName && it.lastName == lastName }
+        return if (player.isEmpty())
+            null
+        else
+            player.first()
     }
 
     override fun onCleared() {
