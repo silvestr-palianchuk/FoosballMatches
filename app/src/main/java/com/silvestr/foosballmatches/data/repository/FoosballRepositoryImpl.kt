@@ -4,13 +4,12 @@ import android.util.Log
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.data.database.AppDatabase
-import com.silvestr.foosballmatches.data.database.DbManager
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
 /*
-* Instead of DataProvider we can use another data source like Data base or Retrofit service
+* Instead of dataBase we can use another data source (for example Retrofit service)
 */
 
 class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballRepository {

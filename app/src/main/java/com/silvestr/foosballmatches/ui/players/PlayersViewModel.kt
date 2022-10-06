@@ -1,12 +1,9 @@
 package com.silvestr.foosballmatches.ui.players
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
-import com.silvestr.foosballmatches.domain.GamesInteractor
 import com.silvestr.foosballmatches.domain.PlayersInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

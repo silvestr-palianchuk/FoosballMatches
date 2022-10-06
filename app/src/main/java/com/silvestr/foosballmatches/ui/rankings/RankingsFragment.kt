@@ -1,7 +1,6 @@
 package com.silvestr.foosballmatches.ui.rankings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +37,9 @@ class RankingsFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRankingsBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,21 +47,28 @@ class RankingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rankingsViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[RankingsViewModel::class.java]
-        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        rankingsViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[RankingsViewModel::class.java]
+        gamesViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         rankingsViewModel?.rankings?.observe(requireActivity()) {
             adapter.updateRankings(it, rankingsViewModel?.sortType ?: DEFAULT_SORT_TYPE)
         }
 
         gamesViewModel?.games?.observe(requireActivity()) {
-           rankingsViewModel?.loadRankings()
+            rankingsViewModel?.loadRankings()
         }
 
         val rankingsRecycler = binding.recyclerRankings
         rankingsRecycler.layoutManager = LinearLayoutManager(context)
         rankingsRecycler.adapter = adapter
-        rankingsRecycler.addItemDecoration(DividerItemDecoration(requireActivity().applicationContext, RecyclerView.VERTICAL))
+        rankingsRecycler.addItemDecoration(
+            DividerItemDecoration(
+                requireActivity().applicationContext,
+                RecyclerView.VERTICAL
+            )
+        )
 
         binding.played.apply {
             isActivated = rankingsViewModel?.sortType == SortType.PLAYED

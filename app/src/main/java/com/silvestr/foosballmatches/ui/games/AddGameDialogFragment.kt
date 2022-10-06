@@ -18,7 +18,7 @@ import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.FragmentAddGameBinding
 import com.silvestr.foosballmatches.di.ViewModelFactory
 import com.silvestr.foosballmatches.utils.DateHelper
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
 
 
@@ -56,7 +56,8 @@ class AddGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        gamesViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.date.text = DateHelper.getFormattedDate(Calendar.getInstance().timeInMillis)
 

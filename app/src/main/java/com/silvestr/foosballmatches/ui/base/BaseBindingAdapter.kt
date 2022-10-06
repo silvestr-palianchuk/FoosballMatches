@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseBindingAdapter : RecyclerView.Adapter<BindableViewHolder<*>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindableViewHolder<*> {
-        return BindableViewHolder.create<ViewDataBinding>(LayoutInflater.from(parent.context), getLayoutResId(viewType), parent)
+        return BindableViewHolder.create<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            getLayoutResId(viewType),
+            parent
+        )
     }
 
     @LayoutRes

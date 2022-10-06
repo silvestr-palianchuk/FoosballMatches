@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class RankingsViewModel @Inject constructor(private val rankingsInteractor: RankingsInteractor) :
-        ViewModel() {
+    ViewModel() {
 
     val rankings: MutableLiveData<List<Ranking>> = MutableLiveData()
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -24,21 +24,21 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
 
     fun loadRankings() {
         disposable.add(rankingsInteractor.getRankings()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            rankings.value = it.sortedBy { ranking ->
-                                when (sortType) {
-                                    SortType.PLAYED -> ranking.played
-                                    SortType.WON -> ranking.won
-                                }
-                            }.asReversed()
-                        },
-                        {
-                            Log.d("RankingsViewModel", "Error: unable to load rankings")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    rankings.value = it.sortedBy { ranking ->
+                        when (sortType) {
+                            SortType.PLAYED -> ranking.played
+                            SortType.WON -> ranking.won
                         }
-                ))
+                    }.asReversed()
+                },
+                {
+                    Log.d("RankingsViewModel", "Error: unable to load rankings")
+                }
+            ))
     }
 
     fun sortRankings(sortType: SortType) {

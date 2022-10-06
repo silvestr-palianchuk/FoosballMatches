@@ -8,12 +8,15 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 
-class BindableViewHolder<T : ViewDataBinding>(val bindings: T) : RecyclerView.ViewHolder(bindings.root) {
+class BindableViewHolder<T : ViewDataBinding>(val bindings: T) :
+    RecyclerView.ViewHolder(bindings.root) {
 
     companion object {
 
-        fun <B : ViewDataBinding> create(inflater: LayoutInflater,
-                                         layoutResId: Int, parent: ViewGroup): BindableViewHolder<B> {
+        fun <B : ViewDataBinding> create(
+            inflater: LayoutInflater,
+            layoutResId: Int, parent: ViewGroup
+        ): BindableViewHolder<B> {
             val binding = DataBindingUtil.inflate<B>(inflater, layoutResId, parent, false)
             return BindableViewHolder(binding)
         }
@@ -21,6 +24,5 @@ class BindableViewHolder<T : ViewDataBinding>(val bindings: T) : RecyclerView.Vi
 
     val context: Context
         get() = itemView.context
-
 
 }

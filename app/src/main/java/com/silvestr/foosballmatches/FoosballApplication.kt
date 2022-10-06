@@ -2,7 +2,6 @@ package com.silvestr.foosballmatches
 
 import android.app.Application
 import com.silvestr.foosballmatches.data.database.DbManager
-import com.silvestr.foosballmatches.di.AppComponent
 import com.silvestr.foosballmatches.di.DaggerAppComponent
 
 

@@ -1,7 +1,6 @@
 package com.silvestr.foosballmatches.domain
 
 import com.silvestr.foosballmatches.data.Game
-import com.silvestr.foosballmatches.data.database.DbManager
 import io.reactivex.Completable
 import io.reactivex.Single
 

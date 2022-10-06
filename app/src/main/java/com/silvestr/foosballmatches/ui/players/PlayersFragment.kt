@@ -31,9 +31,9 @@ class PlayersFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlayersBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,8 +41,10 @@ class PlayersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        playersViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[PlayersViewModel::class.java]
-        gamesViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
+        playersViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[PlayersViewModel::class.java]
+        gamesViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         gamesViewModel?.games?.observe(requireActivity()) {
             playersViewModel?.loadPlayers()

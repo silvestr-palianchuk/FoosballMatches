@@ -8,8 +8,8 @@ class PlayersInteractor(private val foosballRepository: FoosballRepository) {
 
     fun getPlayers(): Single<Set<Player>> {
         return Single.zip(
-                foosballRepository.getPlayers(),
-                foosballRepository.getGames()
+            foosballRepository.getPlayers(),
+            foosballRepository.getGames()
         ) { playersSet, gamesList ->
             /*
             * Filtering players who did not participate in games
