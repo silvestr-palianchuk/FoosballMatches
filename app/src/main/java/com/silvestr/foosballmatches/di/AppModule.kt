@@ -12,21 +12,26 @@ import com.silvestr.foosballmatches.domain.PlayersInteractor
 import com.silvestr.foosballmatches.domain.RankingsInteractor
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 
 @Module
 class AppModule {
 
+    @Singleton
     @Provides
-    fun provideDataBase(): AppDatabase {
+    fun provideDataBase(context: Context): AppDatabase {
+        DbManager.init(context)
         return DbManager.db
     }
 
+    @Singleton
     @Provides
-    fun getPreferences(context: Context): SharedPreferences {
+    fun provideSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences("prefs", MODE_PRIVATE)
     }
 
+    @Singleton
     @Provides
     fun provideFoosballRepository(database: AppDatabase): FoosballRepository {
         return FoosballRepositoryImpl(database)

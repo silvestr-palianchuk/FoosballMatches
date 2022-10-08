@@ -1,7 +1,6 @@
 package com.silvestr.foosballmatches
 
 import android.app.Application
-import com.silvestr.foosballmatches.data.database.DbManager
 import com.silvestr.foosballmatches.di.DaggerAppComponent
 
 
@@ -12,10 +11,5 @@ class FoosballApplication : Application() {
             .builder()
             .context(this)
             .buildAppComponent()
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        DbManager.init(this)
     }
 }
