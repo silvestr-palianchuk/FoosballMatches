@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
@@ -35,7 +36,12 @@ class AddGameDialogFragment : DialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private var gamesViewModel: GamesViewModel? = null
+    private val gamesViewModel: GamesViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[GamesViewModel::class.java]
+    }
 
     private var _binding: FragmentAddGameBinding? = null
     private val binding get() = _binding!!
@@ -56,8 +62,6 @@ class AddGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.date.text = DateHelper.getFormattedDate(Calendar.getInstance().timeInMillis)
 
@@ -82,7 +86,7 @@ class AddGameDialogFragment : DialogFragment() {
         binding.buttonAdd.setOnClickListener {
             if (isValidData()) {
                 val game = createGame()
-                gamesViewModel?.addGame(game)
+                gamesViewModel.addGame(game)
                 gameIdsSet.remove(game.id)
 
                 dismiss()
@@ -118,7 +122,7 @@ class AddGameDialogFragment : DialogFragment() {
     }
 
     private fun createPlayer(firstName: String, lastName: String): Player {
-        val existingPlayer = gamesViewModel?.isPlayerExist(firstName, lastName)
+        val existingPlayer = gamesViewModel.isPlayerExist(firstName, lastName)
 
         return if (existingPlayer == null) {
             val player = Player(

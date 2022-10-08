@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.R
@@ -35,7 +36,12 @@ class EditGameDialogFragment : DialogFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    var gamesViewModel: GamesViewModel? = null
+    private val gamesViewModel: GamesViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[GamesViewModel::class.java]
+    }
 
     private var _binding: FragmentEditGameBinding? = null
     private val binding get() = _binding!!
@@ -59,8 +65,6 @@ class EditGameDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
         binding.game = game
 
@@ -101,7 +105,7 @@ class EditGameDialogFragment : DialogFragment() {
                 )
 
                 if (updatedGame != null && (updatedGame != game))
-                    gamesViewModel?.editGame(updatedGame, position!!)
+                    gamesViewModel.editGame(updatedGame, position!!)
 
                 dismiss()
             }

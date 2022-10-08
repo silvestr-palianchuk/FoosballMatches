@@ -1,11 +1,13 @@
 package com.silvestr.foosballmatches.ui.games
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +24,14 @@ class GamesFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private val gamesViewModel: GamesViewModel by viewModels { viewModelFactory }
+
+    private val gamesViewModel: GamesViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            viewModelFactory
+        )[GamesViewModel::class.java]
+    }
+
 
     private val adapter: GamesAdapter by lazy {
         GamesAdapter(
