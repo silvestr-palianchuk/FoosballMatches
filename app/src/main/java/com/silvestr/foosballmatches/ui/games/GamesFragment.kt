@@ -54,7 +54,7 @@ class GamesFragment : Fragment() {
         gamesViewModel =
             ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
         gamesViewModel?.games?.observe(requireActivity()) {
-            adapter.updateGames(it)
+            adapter.submitList(it)
         }
 
         val gameRecycler = binding.recyclerGame
