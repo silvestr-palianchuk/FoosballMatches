@@ -51,7 +51,7 @@ class PlayersFragment : Fragment() {
         }
 
         playersViewModel?.players?.observe(requireActivity()) {
-            adapter.updatePlayers(it.toList())
+            adapter.submitList(it.toList())
         }
 
         val playersRecycler = binding.recyclerPlayers

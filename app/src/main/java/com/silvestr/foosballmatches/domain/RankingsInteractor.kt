@@ -11,7 +11,6 @@ class RankingsInteractor(private val foosballRepository: FoosballRepository) {
 
     fun getRankings(): Single<List<Ranking>> {
         return foosballRepository.getPlayers()
-            .toObservable()
             .flatMapIterable { it }
             .flatMap { player -> getPlayerRanking(player) }
             .filter { it.played != 0 }
@@ -20,7 +19,6 @@ class RankingsInteractor(private val foosballRepository: FoosballRepository) {
 
     private fun getPlayerRanking(player: Player): Observable<Ranking> {
         return foosballRepository.getGames()
-            .toObservable()
             .flatMapIterable { it }
             .filter { it.player1?.id == player.id || it.player2?.id == player.id }
             .toList()

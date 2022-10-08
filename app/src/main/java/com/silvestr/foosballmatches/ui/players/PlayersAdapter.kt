@@ -4,25 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.silvestr.foosballmatches.R
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.databinding.ListItemPlayerBinding
 
 
-class PlayersAdapter : RecyclerView.Adapter<PlayerViewHolder>() {
-
-    val data: MutableList<Player> = mutableListOf()
-
-    fun updatePlayers(players: List<Player>) {
-        val diffCallback = DiffUtilCallback(data, players)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        data.clear()
-        data.addAll(players)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    override fun getItemCount(): Int = data.size
+class PlayersAdapter : ListAdapter<Player, PlayerViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,7 +25,7 @@ class PlayersAdapter : RecyclerView.Adapter<PlayerViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        holder.bind(data[position], position)
+        holder.bind(getItem(position), position)
     }
 }
 
@@ -49,23 +38,13 @@ class PlayerViewHolder(private val playerBinding: ListItemPlayerBinding) :
     }
 }
 
-class DiffUtilCallback(private val oldList: List<Player>, private val newList: List<Player>) :
-    DiffUtil.Callback() {
+class DiffUtilCallback() : DiffUtil.ItemCallback<Player>() {
 
-    override fun getOldListSize(): Int = oldList.size
-
-    override fun getNewListSize(): Int = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem: Player = oldList[oldItemPosition]
-        val newItem: Player = newList[newItemPosition]
+    override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldList[oldItemPosition]
-        val newItem = newList[newItemPosition]
-
-        return oldItem.hashCode() == newItem.hashCode()
+    override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean {
+        return oldItem == newItem
     }
 }

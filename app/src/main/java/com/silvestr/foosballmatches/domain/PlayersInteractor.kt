@@ -1,13 +1,14 @@
 package com.silvestr.foosballmatches.domain
 
 import com.silvestr.foosballmatches.data.Player
+import io.reactivex.Observable
 import io.reactivex.Single
 
 
 class PlayersInteractor(private val foosballRepository: FoosballRepository) {
 
-    fun getPlayers(): Single<Set<Player>> {
-        return Single.zip(
+    fun getPlayers(): Observable<Set<Player>> {
+        return Observable.zip(
             foosballRepository.getPlayers(),
             foosballRepository.getGames()
         ) { playersSet, gamesList ->

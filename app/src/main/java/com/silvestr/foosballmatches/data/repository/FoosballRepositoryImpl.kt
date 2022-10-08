@@ -6,6 +6,7 @@ import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.data.database.AppDatabase
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /*
@@ -14,14 +15,11 @@ import io.reactivex.Single
 
 class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballRepository {
 
-    override fun getGames(): Single<List<Game>> {
-        return Single.fromCallable {
+    override fun getGames(): Observable<List<Game>> {
+        return Observable.fromCallable {
             val games = dataBase.gameDao.getAllGames()
             games ?: emptyList()
-        }.onErrorResumeNext {
-            Log.e("FoosballRepositoryImpl", "Error: unable to get games -> $it")
-            Single.just(emptyList())
-        }
+        }.onErrorResumeNext(Observable.just(emptyList()))
     }
 
     override fun addGame(game: Game): Completable {
@@ -74,14 +72,11 @@ class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballReposi
             }
     }
 
-    override fun getPlayers(): Single<Set<Player>> {
-        return Single.fromCallable {
+    override fun getPlayers(): Observable<Set<Player>> {
+        return Observable.fromCallable {
             val players = dataBase.playerDao.getAllPlayers()
             players?.toSet() ?: emptySet()
-        }.onErrorResumeNext {
-            Log.e("FoosballRepositoryImpl", "Error: unable to get players -> $it")
-            Single.just(emptySet())
-        }
+        }.onErrorResumeNext(Observable.just(emptySet()))
     }
 
 }

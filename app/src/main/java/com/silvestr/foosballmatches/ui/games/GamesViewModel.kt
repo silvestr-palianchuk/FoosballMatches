@@ -64,6 +64,7 @@ class GamesViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
+                    Log.d("GamesViewModel", "Players were loaded successfully")
                     players.addAll(it)
                 },
                 {
@@ -78,6 +79,7 @@ class GamesViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
+                    Log.d("GamesViewModel", "Games were loaded successfully")
                     games.postValue(it.sortedWith(object : Comparator<Game> {
                         override fun compare(p0: Game, p1: Game): Int {
                             if (p0.date > p1.date) {
@@ -101,6 +103,7 @@ class GamesViewModel @Inject constructor(
             getGamesInteractor.addGame(game)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
+                    Log.d("GamesViewModel", "Games was added")
                     loadGames()
                     loadPlayers()
                 }, {
@@ -114,6 +117,7 @@ class GamesViewModel @Inject constructor(
             getGamesInteractor.editGame(game, position)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
+                    Log.d("GamesViewModel", "Games was edited")
                     loadGames()
                     loadPlayers()
                 }, {
@@ -127,6 +131,7 @@ class GamesViewModel @Inject constructor(
             getGamesInteractor.deleteGame(game.id)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
+                    Log.d("GamesViewModel", "Games was deleted")
                     loadGames()
                     loadPlayers()
                 }, {
