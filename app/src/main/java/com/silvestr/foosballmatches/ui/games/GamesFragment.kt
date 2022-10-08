@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +22,12 @@ class GamesFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    var gamesViewModel: GamesViewModel? = null
+    private val gamesViewModel: GamesViewModel by viewModels { viewModelFactory }
 
     private val adapter: GamesAdapter by lazy {
         GamesAdapter(
             editClickListener = { _, game, position -> showEditGameDialogFragment(game, position) },
-            deleteClickListener = { _, game -> gamesViewModel?.deleteGame(game) })
+            deleteClickListener = { _, game -> gamesViewModel.deleteGame(game) })
     }
 
     private fun showEditGameDialogFragment(game: Game, position: Int) {
@@ -51,9 +51,7 @@ class GamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
-        gamesViewModel?.games?.observe(requireActivity()) {
+        gamesViewModel.games.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 

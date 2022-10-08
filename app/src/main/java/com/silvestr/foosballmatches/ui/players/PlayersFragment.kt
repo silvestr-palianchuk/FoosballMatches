@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.silvestr.foosballmatches.FoosballApplication
 import com.silvestr.foosballmatches.databinding.FragmentPlayersBinding
@@ -20,8 +20,8 @@ class PlayersFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    var playersViewModel: PlayersViewModel? = null
-    var gamesViewModel: GamesViewModel? = null
+    private val playersViewModel: PlayersViewModel by viewModels { viewModelFactory }
+    private val gamesViewModel: GamesViewModel by viewModels { viewModelFactory }
 
     private val adapter: PlayersAdapter by lazy { PlayersAdapter() }
 
@@ -41,16 +41,12 @@ class PlayersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        playersViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[PlayersViewModel::class.java]
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
-        gamesViewModel?.games?.observe(requireActivity()) {
-            playersViewModel?.loadPlayers()
+        gamesViewModel.games.observe(viewLifecycleOwner) {
+            playersViewModel.loadPlayers()
         }
 
-        playersViewModel?.players?.observe(requireActivity()) {
+        playersViewModel.players.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList())
         }
 

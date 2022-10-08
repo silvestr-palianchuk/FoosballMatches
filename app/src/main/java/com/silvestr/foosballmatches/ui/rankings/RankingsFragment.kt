@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,8 +26,8 @@ class RankingsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    var rankingsViewModel: RankingsViewModel? = null
-    var gamesViewModel: GamesViewModel? = null
+    private val rankingsViewModel: RankingsViewModel by viewModels { viewModelFactory }
+    private val gamesViewModel: GamesViewModel by viewModels { viewModelFactory }
 
     private val adapter: RankingsAdapter by lazy { RankingsAdapter() }
 
@@ -47,17 +47,13 @@ class RankingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rankingsViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[RankingsViewModel::class.java]
-        gamesViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[GamesViewModel::class.java]
 
-        rankingsViewModel?.rankings?.observe(requireActivity()) {
-            adapter.updateRankings(it, rankingsViewModel?.sortType ?: DEFAULT_SORT_TYPE)
+        rankingsViewModel.rankings.observe(viewLifecycleOwner) {
+            adapter.updateRankings(it, rankingsViewModel.sortType ?: DEFAULT_SORT_TYPE)
         }
 
-        gamesViewModel?.games?.observe(requireActivity()) {
-            rankingsViewModel?.loadRankings()
+        gamesViewModel.games.observe(viewLifecycleOwner) {
+            rankingsViewModel.loadRankings()
         }
 
         val rankingsRecycler = binding.recyclerRankings
@@ -71,27 +67,27 @@ class RankingsFragment : Fragment() {
         )
 
         binding.played.apply {
-            isActivated = rankingsViewModel?.sortType == SortType.PLAYED
+            isActivated = rankingsViewModel.sortType == SortType.PLAYED
 
             setOnClickListener {
                 if (it.isActivated.not()) {
-                    rankingsViewModel?.sortType = SortType.PLAYED
+                    rankingsViewModel.sortType = SortType.PLAYED
                     it.isActivated = true
                     binding.won.isActivated = false
-                    rankingsViewModel?.sortRankings(SortType.PLAYED)
+                    rankingsViewModel.sortRankings(SortType.PLAYED)
                 }
             }
         }
 
         binding.won.apply {
-            isActivated = rankingsViewModel?.sortType == SortType.WON
+            isActivated = rankingsViewModel.sortType == SortType.WON
 
             setOnClickListener {
                 if (it.isActivated.not()) {
-                    rankingsViewModel?.sortType = SortType.WON
+                    rankingsViewModel.sortType = SortType.WON
                     it.isActivated = true
                     binding.played.isActivated = false
-                    rankingsViewModel?.sortRankings(SortType.WON)
+                    rankingsViewModel.sortRankings(SortType.WON)
                 }
             }
         }
