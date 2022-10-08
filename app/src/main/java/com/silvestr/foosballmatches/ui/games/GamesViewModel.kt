@@ -11,6 +11,7 @@ import com.silvestr.foosballmatches.data.database.DbManager
 import com.silvestr.foosballmatches.domain.GamesInteractor
 import com.silvestr.foosballmatches.domain.PlayersInteractor
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -76,21 +77,25 @@ class GamesViewModel @Inject constructor(
 
     private fun loadGames() {
         disposable.add(getGamesInteractor.getGames()
+            .map {
+                it.sortedWith(object : Comparator<Game> {
+                    override fun compare(p0: Game, p1: Game): Int {
+                        if (p0.date > p1.date) {
+                            return -1
+                        }
+                        if (p0.date == p1.date) {
+                            return 0
+                        }
+                        return 1
+                    }
+                })
+            }
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     Log.d("GamesViewModel", "Games were loaded successfully")
-                    games.postValue(it.sortedWith(object : Comparator<Game> {
-                        override fun compare(p0: Game, p1: Game): Int {
-                            if (p0.date > p1.date) {
-                                return -1
-                            }
-                            if (p0.date == p1.date) {
-                                return 0
-                            }
-                            return 1
-                        }
-                    }))
+                    games.value = it
                 },
                 {
                     Log.e("GamesViewModel", "Error: unable to load games -> $it")
