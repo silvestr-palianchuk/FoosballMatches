@@ -89,12 +89,12 @@ class EditGameDialogFragment : DialogFragment() {
         binding.buttonUpdate.setOnClickListener {
             if (isValidData()) {
                 val updatedPlayer1 = game?.player1?.copy(
-                    firstName = binding.editTextPlayer1FirstName.text.toString(),
-                    lastName = binding.editTextPlayer1LastName.text.toString()
+                    firstName = binding.editTextPlayer1FirstName.text.toString().trim(),
+                    lastName = binding.editTextPlayer1LastName.text.toString().trim()
                 )
                 val updatedPlayer2 = game?.player2?.copy(
-                    firstName = binding.editTextPlayer2FirstName.text.toString(),
-                    lastName = binding.editTextPlayer2LastName.text.toString()
+                    firstName = binding.editTextPlayer2FirstName.text.toString().trim(),
+                    lastName = binding.editTextPlayer2LastName.text.toString().trim()
                 )
                 val updatedGame = game?.copy(
                     date = DateHelper.convertStringDateToLong(binding.date.text.toString()),

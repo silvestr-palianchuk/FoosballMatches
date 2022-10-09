@@ -6,8 +6,7 @@ import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.data.database.AppDatabase
 import com.silvestr.foosballmatches.domain.FoosballRepository
 import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 /*
 * Instead of dataBase we can use another data source (for example Retrofit service)
@@ -15,11 +14,8 @@ import io.reactivex.Single
 
 class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballRepository {
 
-    override fun getGames(): Observable<List<Game>> {
-        return Observable.fromCallable {
-            val games = dataBase.gameDao.getAllGames()
-            games ?: emptyList()
-        }.onErrorResumeNext(Observable.just(emptyList()))
+    override fun getGames(): Flowable<List<Game>> {
+        return dataBase.gameDao.getAllGamesFlowable()
     }
 
     override fun addGame(game: Game): Completable {
@@ -39,7 +35,7 @@ class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballReposi
             dataBase.gameDao.update(game)
             dataBase.playerDao.update(game.player1!!)
             dataBase.playerDao.update(game.player2!!)
-            dataBase.gameDao.getAllGames()?.forEach() { gameFromDb ->
+            dataBase.gameDao.getAllGames().forEach() { gameFromDb ->
                 when {
                     gameFromDb.player1?.id == game.player1.id && gameFromDb.player2?.id == game.player2.id -> {
                         val updatedGame =
@@ -72,11 +68,9 @@ class FoosballRepositoryImpl(private val dataBase: AppDatabase) : FoosballReposi
             }
     }
 
-    override fun getPlayers(): Observable<Set<Player>> {
-        return Observable.fromCallable {
-            val players = dataBase.playerDao.getAllPlayers()
-            players?.toSet() ?: emptySet()
-        }.onErrorResumeNext(Observable.just(emptySet()))
+    override fun getPlayers(): Flowable<Set<Player>> {
+        return dataBase.playerDao.getAllPlayers()
+            .map { it.toSet() }
     }
 
 }

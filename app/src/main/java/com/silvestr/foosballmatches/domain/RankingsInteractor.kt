@@ -3,29 +3,27 @@ package com.silvestr.foosballmatches.domain
 import com.silvestr.foosballmatches.data.Game
 import com.silvestr.foosballmatches.data.Player
 import com.silvestr.foosballmatches.data.Ranking
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 
 class RankingsInteractor(private val foosballRepository: FoosballRepository) {
 
-    fun getRankings(): Single<List<Ranking>> {
-        return foosballRepository.getPlayers()
-            .flatMapIterable { it }
-            .flatMap { player -> getPlayerRanking(player) }
-            .filter { it.played != 0 }
-            .toList()
+    fun getRankings(): Flowable<List<Ranking>> {
+        return Flowable.zip(
+            foosballRepository.getPlayers(),
+            foosballRepository.getGames()
+        ) { playersSet, gamesList ->
+            val rankings = mutableListOf<Ranking>()
+            playersSet.forEach {
+                rankings.add(getPlayerRanking(it, gamesList))
+            }
+            return@zip rankings.filter { it.played != 0 }
+        }
     }
 
-    private fun getPlayerRanking(player: Player): Observable<Ranking> {
-        return foosballRepository.getGames()
-            .flatMapIterable { it }
-            .filter { it.player1?.id == player.id || it.player2?.id == player.id }
-            .toList()
-            .flatMap {
-                Single.just(calculatePlayerRankings(player, it))
-            }
-            .toObservable()
+    private fun getPlayerRanking(player: Player, gamesList: List<Game>): Ranking {
+        val games = gamesList.filter { it.player1?.id == player.id || it.player2?.id == player.id }
+        return calculatePlayerRankings(player, games)
     }
 
     private fun calculatePlayerRankings(player: Player, games: List<Game>): Ranking {

@@ -24,6 +24,7 @@ class GamesViewModel @Inject constructor(
     ViewModel() {
     val games: MutableLiveData<List<Game>> = MutableLiveData()
     val players: MutableSet<Player> = mutableSetOf()
+
     private var disposable: CompositeDisposable = CompositeDisposable()
     private val IS_DB_POPULATED = "IS_DB_POPULATED"
 
@@ -65,8 +66,8 @@ class GamesViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    Log.d("GamesViewModel", "Players were loaded successfully")
                     players.addAll(it)
+                    Log.d("GamesViewModel", "Players were loaded successfully")
                 },
                 {
                     Log.e("GamesViewModel", "Error: unable to load players -> $it")
@@ -109,8 +110,6 @@ class GamesViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     Log.d("GamesViewModel", "Games was added")
-                    loadGames()
-                    loadPlayers()
                 }, {
                     Log.e("GamesViewModel", "Error: unable to add game -> $it")
                 })
@@ -123,8 +122,6 @@ class GamesViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     Log.d("GamesViewModel", "Games was edited")
-                    loadGames()
-                    loadPlayers()
                 }, {
                     Log.e("GamesViewModel", "Error: unable to edit game-> $it")
                 })
@@ -137,8 +134,6 @@ class GamesViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     Log.d("GamesViewModel", "Games was deleted")
-                    loadGames()
-                    loadPlayers()
                 }, {
                     Log.e("GamesViewModel", "Error: unable to delete game -> $it")
                 })
@@ -147,6 +142,7 @@ class GamesViewModel @Inject constructor(
 
     fun isPlayerExist(firstName: String, lastName: String): Player? {
         val player = players.filter { it.firstName == firstName && it.lastName == lastName }
+
         return if (player.isEmpty())
             null
         else

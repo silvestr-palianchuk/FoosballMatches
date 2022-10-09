@@ -2,12 +2,13 @@ package com.silvestr.foosballmatches.domain
 
 import com.silvestr.foosballmatches.data.Game
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 
 class GamesInteractor(private val foosballRepository: FoosballRepository) {
-    fun getGames(): Observable<List<Game>> {
+    fun getGames(): Flowable<List<Game>> {
         return foosballRepository.getGames()
     }
 

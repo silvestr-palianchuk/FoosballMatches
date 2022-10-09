@@ -2,6 +2,7 @@ package com.silvestr.foosballmatches.data.database
 
 import androidx.room.*
 import com.silvestr.foosballmatches.data.Game
+import io.reactivex.Flowable
 
 @Dao
 interface GameDao {
@@ -21,5 +22,9 @@ interface GameDao {
     fun update(game: Game)
 
     @Query("SELECT * FROM game")
-    fun getAllGames(): List<Game>?
+    fun getAllGamesFlowable(): Flowable<List<Game>>
+
+    @Query("SELECT * FROM game")
+    fun getAllGames(): List<Game>
+
 }
