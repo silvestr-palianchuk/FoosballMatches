@@ -9,11 +9,13 @@ object DbManager {
         private set
 
     fun init(context: Context) {
-        db = Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabase::class.java, DB_NAME
-        )
-            .fallbackToDestructiveMigration()
-            .build()
+        if (this::db.isInitialized.not()) {
+            db = Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java, DB_NAME
+            )
+                .fallbackToDestructiveMigration()
+                .build()
+        }
     }
 }

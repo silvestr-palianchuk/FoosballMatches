@@ -27,7 +27,7 @@ class GamesFragment : Fragment() {
 
     private val gamesViewModel: GamesViewModel by lazy {
         ViewModelProvider(
-            requireActivity(),
+            requireActivity(), //using activity context in order to share GamesViewModel between EditGameDialogFragment, AddGameDialogFragment, GamesFragment
             viewModelFactory
         )[GamesViewModel::class.java]
     }

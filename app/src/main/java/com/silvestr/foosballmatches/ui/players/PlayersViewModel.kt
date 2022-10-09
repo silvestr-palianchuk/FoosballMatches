@@ -18,6 +18,7 @@ class PlayersViewModel @Inject constructor(
 
     val players: MutableLiveData<Set<Player>> = MutableLiveData()
     val games: MutableSet<Player> = mutableSetOf()
+
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     init {

@@ -38,7 +38,7 @@ class AddGameDialogFragment : DialogFragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private val gamesViewModel: GamesViewModel by lazy {
         ViewModelProvider(
-            requireActivity(),
+            requireActivity(), //using activity context in order to share GamesViewModel between EditGameDialogFragment, AddGameDialogFragment, GamesFragment
             viewModelFactory
         )[GamesViewModel::class.java]
     }
@@ -71,10 +71,6 @@ class AddGameDialogFragment : DialogFragment() {
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                calendar.set(Calendar.MILLISECOND, 0)
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MINUTE, 0)
-                calendar.set(Calendar.HOUR, 0)
 
                 binding.date.text = DateHelper.getFormattedDate(calendar.timeInMillis)
             }

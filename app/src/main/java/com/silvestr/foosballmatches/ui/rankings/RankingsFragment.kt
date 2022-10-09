@@ -27,6 +27,7 @@ class RankingsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     private val rankingsViewModel: RankingsViewModel by viewModels { viewModelFactory }
     private val gamesViewModel: GamesViewModel by viewModels { viewModelFactory }
 
@@ -50,7 +51,7 @@ class RankingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rankingsViewModel.rankings.observe(viewLifecycleOwner) {
-            adapter.updateRankings(it, rankingsViewModel.sortType ?: DEFAULT_SORT_TYPE)
+            adapter.updateRankings(it, rankingsViewModel.sortType)
         }
 
         gamesViewModel.games.observe(viewLifecycleOwner) {

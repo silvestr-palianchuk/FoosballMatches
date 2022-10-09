@@ -20,8 +20,8 @@ class GamesViewModel @Inject constructor(
     private val getGamesInteractor: GamesInteractor,
     private val playersInteractor: PlayersInteractor,
     private val sharedPreferences: SharedPreferences
-) :
-    ViewModel() {
+) : ViewModel() {
+
     val games: MutableLiveData<List<Game>> = MutableLiveData()
     val players: MutableSet<Player> = mutableSetOf()
 
@@ -51,7 +51,6 @@ class GamesViewModel @Inject constructor(
                 }
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    Log.d("GamesViewModel", "Players and Games were added successfully")
                     loadGames()
                     loadPlayers()
                     sharedPreferences.edit().putBoolean(IS_DB_POPULATED, true).apply()
@@ -61,24 +60,12 @@ class GamesViewModel @Inject constructor(
         )
     }
 
-    private fun loadPlayers() {
-        disposable.add(playersInteractor.getPlayers()
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                {
-                    players.addAll(it)
-                    Log.d("GamesViewModel", "Players were loaded successfully")
-                },
-                {
-                    Log.e("GamesViewModel", "Error: unable to load players -> $it")
-                }
-            ))
-
-    }
-
     private fun loadGames() {
         disposable.add(getGamesInteractor.getGames()
             .map {
+                /*
+                * Using custom comparator in order to sort Games in a proper order.
+                */
                 it.sortedWith(object : Comparator<Game> {
                     override fun compare(p0: Game, p1: Game): Int {
                         if (p0.date > p1.date) {
@@ -95,7 +82,6 @@ class GamesViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Log.d("GamesViewModel", "Games were loaded successfully")
                     games.value = it
                 },
                 {
@@ -104,12 +90,26 @@ class GamesViewModel @Inject constructor(
             ))
     }
 
+    private fun loadPlayers() {
+        disposable.add(playersInteractor.getPlayers()
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    players.addAll(it)
+                },
+                {
+                    Log.e("GamesViewModel", "Error: unable to load players -> $it")
+                }
+            ))
+
+    }
+
     fun addGame(game: Game) {
         disposable.add(
             getGamesInteractor.addGame(game)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    Log.d("GamesViewModel", "Games was added")
+                    Log.d("GamesViewModel", "Game was added")
                 }, {
                     Log.e("GamesViewModel", "Error: unable to add game -> $it")
                 })
@@ -121,7 +121,7 @@ class GamesViewModel @Inject constructor(
             getGamesInteractor.editGame(game, position)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    Log.d("GamesViewModel", "Games was edited")
+                    Log.d("GamesViewModel", "Game was edited")
                 }, {
                     Log.e("GamesViewModel", "Error: unable to edit game-> $it")
                 })
@@ -133,7 +133,7 @@ class GamesViewModel @Inject constructor(
             getGamesInteractor.deleteGame(game.id)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    Log.d("GamesViewModel", "Games was deleted")
+                    Log.d("GamesViewModel", "Game was deleted")
                 }, {
                     Log.e("GamesViewModel", "Error: unable to delete game -> $it")
                 })

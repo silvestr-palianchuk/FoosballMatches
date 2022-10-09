@@ -32,7 +32,14 @@
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/layout/fragment_players.xml" value="0.17685185185185184" />
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/layout/fragment_rankings.xml" value="0.17685185185185184" />
         <entry key="..\:/Projects/Apps/FoosballMatches/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17685185185185184" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/fragment_add_game.xml" value="0.1287037037037037" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/fragment_edit_game.xml" value="0.1287037037037037" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/fragment_games.xml" value="0.21944444444444444" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/fragment_players.xml" value="0.21944444444444444" />
         <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/fragment_rankings.xml" value="0.15092592592592594" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/list_item_game.xml" value="0.1287037037037037" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/list_item_player.xml" value="0.1287037037037037" />
+        <entry key="..\:/Projects/Apps/FoosballMatches1/app/src/main/res/layout/list_item_ranking.xml" value="0.1287037037037037" />
       </map>
     </option>
   </component>

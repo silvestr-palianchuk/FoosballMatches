@@ -41,7 +41,6 @@ class GameViewHolder(
 
     fun bind(game: Game, position: Int) {
         gameBinding.game = game
-        gameBinding.executePendingBindings()
 
         gameBinding.actionEdit.setOnClickListener {
             editClickListener.invoke(it, game, position)
@@ -50,6 +49,8 @@ class GameViewHolder(
         gameBinding.actionDelete.setOnClickListener {
             deleteClickListener.invoke(it, game)
         }
+
+        gameBinding.executePendingBindings()
     }
 }
 

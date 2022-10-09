@@ -15,8 +15,9 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
     ViewModel() {
 
     val rankings: MutableLiveData<List<Ranking>> = MutableLiveData()
-    private var disposable: CompositeDisposable = CompositeDisposable()
     var sortType: SortType = DEFAULT_SORT_TYPE
+
+    private var disposable: CompositeDisposable = CompositeDisposable()
 
     init {
         loadRankings()
@@ -54,7 +55,7 @@ class RankingsViewModel @Inject constructor(private val rankingsInteractor: Rank
         }
 
         sortedRankings?.let {
-            rankings.postValue(it)
+            rankings.value = it
         }
     }
 
